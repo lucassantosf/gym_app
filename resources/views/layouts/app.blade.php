@@ -51,6 +51,26 @@
                     </div>
                 </div>
 
+                <div class="btn-group">
+                    <button class="btn btn-lg " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Estoque
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="navbar-brand" href="{{ url('/cadastros/fornecedores') }}">
+                            Fornecedores
+                        </a>
+                        <a class="navbar-brand" href="{{ url('/estoque/compras') }}">
+                            Compras
+                        </a>
+                        <a class="navbar-brand" href="{{ url('/estoque/balanco') }}">
+                            Balanço
+                        </a>
+                        <a class="navbar-brand" href="{{ url('/estoque/cardex') }}">
+                            Cárdex
+                        </a> 
+                    </div>
+                </div>
+
                 <div class="btn-group ">
                     <button class="btn btn-lg" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Relatórios

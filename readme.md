@@ -3,43 +3,42 @@
 ## About this App
 
 <p>
-	Este projeto é um software open-sourced para gestão fitness onde é desenvolvido e mantido com o Laravel framework, abaixo segue listado as funcionalidades implementadas e também as que estão em andamento:
+	Este projeto é um software para gestão fitness onde é desenvolvido e mantido com o Laravel framework, abaixo seguem listadas as funcionalidades implementadas e também as que estão em andamento:
 </p>
+
+<h2>Funcionalidades Implementadas</h2>
 	
 <p>	
-	<h1>Funcionalidades Implementadas</h1>
+	-> Gestão estrutural para a empresa, como : 
+	-------------CRUD para Usuários 
+	-------------CRUD para Planos  
+	-------------CRUD para Produtos e Serviços 
+	-------------CRUD para Modalidades 
+	-------------CRUD para Turmas 	
+	-------------CRUD para Fornecedores 	
 
-	-> Gestão de cadastros estruturais para a empresa, como : <br>
-	-------------CRUD Modalidades <br>
-	-------------CRUD para Planos  <br>
-	-------------CRUD para Produtos <br>
-	-------------CRUD para Turmas <br>
-	-------------CRUD para Usuários <br>
+	-> Cadastrar novos clientes
+
+	-> Manter controle da carteira dos clientes visitantes e ativos
+
+	-> Profile do cliente para consultar seu histórico dentro da empresa
+
+	-> Negociar planos e modalidadas para clientes 
 	
-	-> Cadastrar clientes, e manter controle da base de carteira dos clientes visitantes e ativos <br>
+	-> Realizar vendas de produtos, e também operação de estorno 
 
-	-> Profile do cliente para consultar seu histórico dentro da empresa <br> 
+	-> Recebimento de parcelas de planos, e operação de estorno (estorno) 
 
-	-> Negociar planos e modalidadas para clientes <br>
-	
-	-> Realizar vendas de produtos, e também operação de estorno <br>
+	-> Tela para consultar parcelas à receber por aluno
 
-	-> Recebimento de parcelas de planos, e operação de estorno (estorno) <br>
+	-> Negociar planos com horários fixos de turmas 
 
-	-> Tela para consultar parcelas à receber por aluno <br>
-
-	-> Negociar planos com horários de turmas <br>
-
-	-> Tela para gerenciar grade horária de turmas <br> 
+	-> Tela para Gestão das turmas 
 </p>
+
+<h2>Funcionalidades em andamento</h2>
 
 <p>	
-	<h1>Funcionalidades em andamento</h1>
-
-	-> Controle de Estoque <br>   
-
+	-> Gestão de Estoque 
 </p>
-<br>  
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+  

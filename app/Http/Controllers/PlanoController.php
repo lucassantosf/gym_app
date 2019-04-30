@@ -224,27 +224,30 @@ class PlanoController extends Controller
             //Consulta pelas modalidades do plano 
             $modals_bd = DB::table('modalidades_planos')->where([
                 ['plano_id','=',$plan->id],           
-            ])->get(); 
+            ])->get();  
             //Para cada modalidade existente - procurar os detalhes de cada modalidade e os horários caso for modalidade de turma
-            foreach ($modals_bd as $m) {  
-                $modal = Modalidade::find($m->modal_id);
+            foreach ($modals_bd as $m) {   
+                $modalc = DB::table('modalidades')->where([
+                            ['id','=',$m->modal_id],           
+                        ])->get();  
+                foreach ($modalc as $modal) {
+                    //Incluir no json os detalhes das turmas se houver
+                    $turmas = DB::table('turmas')->where([['modal_id',$m->modal_id],['deleted_at',NULL],])->get();
+                    if(count($turmas)>0){
+                        array_push($modals, [$modal->name=>$modal->value,'modal_id'=>$m->modal_id,'has_turma'=>TRUE]);  
 
-                //Incluir no json os detalhes das turmas se houver
-                $turmas = DB::table('turmas')->where([['modal_id',$m->modal_id],['deleted_at',NULL],])->get();
-                if(count($turmas)>0){
-                    array_push($modals, [$modal->name=>$modal->value,'modal_id'=>$m->modal_id,'has_turma'=>TRUE]);  
-
-                    foreach ($turmas as $t) {
-                        $itens_consulta = DB::table('item_turmas')->where([['turma_id',$t->id],['deleted_at',NULL],])->get();
-                        if(count($itens_consulta)>0){
-                            foreach ($itens_consulta as $i) {
-                                array_push($itens, $i);
+                        foreach ($turmas as $t) {
+                            $itens_consulta = DB::table('item_turmas')->where([['turma_id',$t->id],['deleted_at',NULL],])->get();
+                            if(count($itens_consulta)>0){
+                                foreach ($itens_consulta as $i) {
+                                    array_push($itens, $i);
+                                } 
                             } 
-                        } 
-                    }    
-                }else{ 
-                    array_push($modals, [$modal->name=>$modal->value,'modal_id'=>$m->modal_id,'has_turma'=>FALSE]);   
-                }          
+                        }    
+                    }else{  
+                        array_push($modals, [$modal->name=>$modal->value,'modal_id'=>$m->modal_id,'has_turma'=>FALSE]);   
+                    }      
+                }   
             } 
             //Preparar o json principal e fazer seu retorno
             $dados = array('plano_nome'=>$plan->name,'duracoes'=>$duracoes,'modals'=>$modals,'itens'=>$itens);

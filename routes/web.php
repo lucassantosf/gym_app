@@ -59,8 +59,26 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/home/turmas/gestaoturmasview','TurmaController@gestaoTurmasView');
 	Route::get('/home/turmas/gestaoturmasview/consultarTurmasFromModalId/{id}','TurmaController@getTurmasFromModalId');
 	Route::get('/home/turmas/gestaoturmasview/consultarItensFromTurmaId/{id}','TurmaController@getItensFromTurmaId'); 
- 
-	// Relatórios
+ 	
+	Route::get('/cadastros/fornecedores','FornecedorController@indexFornecedores');
+	Route::get('/cadastros/formFornecedor','FornecedorController@formFornecedor');
+	Route::post('/cadastros/formFornecedor','FornecedorController@postFormFornecedor');
+	Route::get('/cadastros/fornecedor/{id}/edit','FornecedorController@formFornecedorEdit'); 
+	Route::post('/cadastros/fornecedor/{id}/edit','FornecedorController@postFormFornecedorEdit'); 
+	Route::get('/cadastros/fornecedor/{id}/delete','FornecedorController@destroyFornecedor');
+
+	//Gestão de Estoque
+	//compras
+	Route::get('/estoque/compras','CompraController@indexCompras');
+	Route::get('/estoque/formCompra','CompraController@formCompra');
+	Route::post('/estoque/formCompra','CompraController@postFormCompra');
+	Route::get('/estoque/compra/{id}/delete','CompraController@destroyCompra');
+
+	//balanço
+	Route::get('/estoque/balanco','CompraController@indexCompras');
+	//cardex
+	Route::get('/estoque/cardex','CompraController@indexCompras');
+
 	// Clientes e Incluir Clientes
 	Route::get('/clients','ClienteController@indexClients');
 	Route::get('/incluir/clients','ClienteController@indexClientsAdd');
