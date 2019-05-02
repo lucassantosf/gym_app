@@ -9,12 +9,19 @@
 <h2>Funcionalidades Implementadas</h2>
 	
 <p>	
+	
 	-> Gestão estrutural para a empresa, como : 
+
 	-------------CRUD para Usuários 
+
 	-------------CRUD para Planos  
+
 	-------------CRUD para Produtos e Serviços 
+
 	-------------CRUD para Modalidades 
+
 	-------------CRUD para Turmas 	
+
 	-------------CRUD para Fornecedores 	
 
 	-> Cadastrar novos clientes

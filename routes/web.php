@@ -67,15 +67,18 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/cadastros/fornecedor/{id}/edit','FornecedorController@postFormFornecedorEdit'); 
 	Route::get('/cadastros/fornecedor/{id}/delete','FornecedorController@destroyFornecedor');
 
-	//Gestão de Estoque
-	//compras
+	//Gestão de Estoque compras
 	Route::get('/estoque/compras','CompraController@indexCompras');
 	Route::get('/estoque/formCompra','CompraController@formCompra');
 	Route::post('/estoque/formCompra','CompraController@postFormCompra');
 	Route::get('/estoque/compra/{id}/delete','CompraController@destroyCompra');
 
 	//balanço
-	Route::get('/estoque/balanco','CompraController@indexCompras');
+	Route::get('/estoque/balanco','BalancoController@indexBalancos');
+	Route::get('/estoque/formBalanco','BalancoController@formBalanco');
+	Route::post('/estoque/formBalanco','BalancoController@postFormBalanco');
+	Route::get('/estoque/balanco/{id}/delete','BalancoController@destroyBalanco');
+
 	//cardex
 	Route::get('/estoque/cardex','CompraController@indexCompras');
 
