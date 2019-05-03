@@ -10,27 +10,35 @@ use App\ItemBalanco;
 class BalancoController extends Controller
 {
     //Exibir o histórico de balanços
-    public function indexBalancos(){
-    	$i = 0;
-    	$balancos = Balanco::all(); 
-    	$posicao_atual = DB::table('posicao_estoque_atual')->where([
+    public function indexBalancos($i = 0){
+    	$balancos = Balanco::all();
+        $prods_consulta = [];
+    	$posicao_atual = [];
+
+    	$produtos = DB::table('produtos')->where([ 
+            ['controlEstoque',1],
+            ['status',1],
+            ['deleted_at',NULL]
+        ])->get();  
+    	$consulta = DB::table('posicao_estoque_atual')->where([
         	['deleted_at',NULL],
-        ])->get();
-    	return view('estoque.balanco',compact('i','balancos','posicao_atual'));
+        ])->get(); 
+       	foreach ($consulta as $c) {
+       		array_push($prods_consulta, $c->produto_id);
+       		array_push($posicao_atual, ['produto_id'=>$c->produto_id,'quantidade_atual'=>$c->quantidade_atual]);
+       	} 
+       	foreach ($produtos as $p) {
+       		if (!in_array($p->id, $prods_consulta)) {  
+       			array_push($posicao_atual, ['produto_id'=>$p->id,'quantidade_atual'=>0]); 
+			}
+       	}
+    	return view('estoque.balanco',compact('i','balancos','produtos','posicao_atual'));
     }
 
     //Exibir o form para lançar balanço
     public function formBalanco(){
-    	$i = 1; 
-        $produtos = DB::table('produtos')->where([ 
-            ['controlEstoque',1],
-            ['status',1],
-            ['deleted_at',NULL]
-        ])->get();
-        $posicao_atual = DB::table('posicao_estoque_atual')->where([
-        	['deleted_at',NULL],
-        ])->get();
-    	return view('estoque.balanco',compact('i','produtos','posicao_atual'));
+
+        return $this->indexBalancos(1);
     }
 
     //Este método trata o post do formulário da Balanco
@@ -54,17 +62,13 @@ class BalancoController extends Controller
     		$item->quantidade_anterior = $lastSaldo[$i];
     		$item->diferenca_balanco = $diffence[$i];
     		$item->save();
-
     		//Atualizar na posição de estoque a quantidade do item 
-    		//Se tiver registro atualizar 
-    		$consulta = DB::table('posicao_estoque_atual')->where('produto_id',$prods_id[$i])->get();
-    		if(count($consulta)>0){
-    			DB::table('posicao_estoque_atual')
+    		//Se tiver registro atualizar senão inserir um novo
+    		DB::table('posicao_estoque_atual')
 			    ->updateOrInsert(
 			    	['produto_id' => $prods_id[$i]],
        				['quantidade_atual' => $qtdProd[$i]] 
-			    );
-    		} 
+			); 
     	}
     	return redirect('/estoque/balanco');
     }

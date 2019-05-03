@@ -32,7 +32,24 @@ class VendaAvulsaController extends Controller
         	$item_venda_avulsa->descricao_produto = $produto->name;
         	$item_venda_avulsa->venda_avulsa_id = $venda_avulsa->id;
         	$item_venda_avulsa->save();
-        }        	
+
+            //Diminuir Posição_estoque do prod_id
+            if($produto->controlEstoque == 1){
+                $consulta = DB::table('posicao_estoque_atual')->where('produto_id',$produto->id)->get();
+                if(count($consulta) > 0){
+                    DB::table('posicao_estoque_atual')
+                    ->updateOrInsert(
+                        ['produto_id' => $consulta[0]->produto_id ],
+                        ['quantidade_atual' => $consulta[0]->quantidade_atual - 1] 
+                    ); 
+                }else{ 
+                    DB::table('posicao_estoque_atual')->insert([
+                        'produto_id'=>$produto->id,
+                        'quantidade_atual'=>(-1)
+                    ]); 
+                } 
+            } 
+        }        
         //Gerar a parcela única da venda avulsa
     	$parcelaVendaAvulsa = new Parcela();
     	$parcelaVendaAvulsa->venda_avulsa_id = $venda_avulsa->id;

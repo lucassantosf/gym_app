@@ -96,7 +96,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Fim card Cadastro-->
+            <!-- Fim card Cadastro-->  
         @endif  
     </div>
 </div>
@@ -108,12 +108,11 @@
     <script type="text/javascript">
         //Método para DOM quando estiver carregado
         $(document).ready(function() {  
-            $( function(data) {
-
+            $( function(data) { 
                 //Exibir o plugin de calendário
                 $( ".datepicker" ).datepicker();
-                setItens();
-            }); 
+            });  
+            setItens(); 
         });
 
         let cod_prod = new Array();
@@ -122,12 +121,22 @@
 
         //Setar obj com os arrays dos prods e qtd_prods
         function setItens(){
-            @foreach($posicao_atual as $pos) 
-                cod_prod.push({{$pos->produto_id}});
-                qtd_prod.push({{$pos->quantidade_atual}});
-            @endforeach  
+            //Se não houver nenhum registro de posição de estoque para os produtos gerar array qtd zerado 
+            @if(count($posicao_atual) == 0)
+                @foreach($produtos as $p)
+                    cod_prod.push({{$p->id}});
+                    qtd_prod.push(0); 
+                @endforeach 
+            @else
+                //Se houver registros, inserir dados no array
+                @foreach($posicao_atual as $p)
+                    cod_prod.push({{$p['produto_id']}});
+                    qtd_prod.push({{$p['quantidade_atual']}});  
+                @endforeach  
+            @endif
+            //Setar obj
             obj.produto_id = cod_prod;
-            obj.quantidade_atual = qtd_prod;
+            obj.qtd_prod = qtd_prod;
         }
 
         //Getter from obj
@@ -139,20 +148,10 @@
         //Retornar o saldo de um prod de acordo ao prod_id
         function getLastSaldo(prod_id){ 
             obj = getObj(); 
-            for(i=0; i< obj.produto_id.length ; i++){ 
-                console.log(obj.produto_id[i]);
-                console.log(prod_id);
-                //if(obj.produto_id[i] == prod_id){ 
-                //    return obj.quantidade_atual[i]; 
-                //}  
-                var n = obj.produto_id.indexOf(prod_id);
-                console.log(n);
-                if(obj.produto_id.indexOf(prod_id) == -1){
-                    return obj.quantidade_atual[i];
-                }else{
-                    return 0;
-                }
-
+            for(i=0; i< obj.produto_id.length ; i++){  
+                if(obj.produto_id[i] == prod_id){ 
+                    return obj.qtd_prod[i]; 
+                }  
             }
         }
 

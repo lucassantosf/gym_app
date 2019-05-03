@@ -15,11 +15,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
-    <style type="text/css">
+    <!--<style type="text/css">
         body{ 
             background: url({{url('svg/academia.png')}}) no-repeat center top; 
         }
-    </style>
+    </style>-->
 </head>
 <body>
     <div id="app">
@@ -67,6 +67,9 @@
                         </a>
                         <a class="navbar-brand" href="{{ url('/estoque/cardex') }}">
                             Cárdex
+                        </a>
+                        <a class="navbar-brand" href="{{ url('/estoque/posicaoEstoque') }}">
+                            Posição
                         </a> 
                     </div>
                 </div>

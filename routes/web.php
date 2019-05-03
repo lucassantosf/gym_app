@@ -80,7 +80,9 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/estoque/balanco/{id}/delete','BalancoController@destroyBalanco');
 
 	//cardex
-	Route::get('/estoque/cardex','CompraController@indexCompras');
+	Route::get('/estoque/cardex','CardexController@indexCardex');
+
+	Route::get('/estoque/posicaoEstoque','PosicaoEstoqueController@indexPosicaoEstoque');
 
 	// Clientes e Incluir Clientes
 	Route::get('/clients','ClienteController@indexClients');
@@ -104,7 +106,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/clients/caixaAberto/post','ParcelaController@postCaixaAberto'); 
 
 	//Vendas e Vendas Avulsas
-	Route::get('/vendas/view','VendaController@returnView');
+	Route::get('/vendas/view','VendaController@returnView'); 
 	Route::post('/vendas/viewPost','VendaAvulsaController@postVendaAvulsa');
 	Route::get('/vendas/estornarVendaAvulsa/{id}','VendaAvulsaController@estornarVendaAvulsa');
 	Route::get('/vendas/viewWithClient/{id}/{name}','VendaController@returnViewWithClient');
