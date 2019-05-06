@@ -9,13 +9,20 @@
                     Cardex
                 </div>
                 <div class="card-body">
-                	<div class="form-inline"> 
+                	<div class="form-group row"> 
 						    <label for="dt_inicio">Periodo</label>
-						    <input type="text" class="form-control" id="dt_inicio">
-						 
+						    <div class="col-sm-2">
+						    	<input type="text" class="form-control form-control-sm datepicker" id="dt_inicio"> 
+						    </div>
+
 						    <label for="dt_fim">a</label> 
-						    <input type="text" class="form-control" id="dt_fim">
-							<button type="button" class="btn btn-primary btn-sm">Consultar</button>
+						    <div class="col-sm-2">
+						    	<input type="text" class="form-control form-control-sm datepicker" id="dt_fim">
+						    </div>
+
+						    <div class="col-sm-1">
+						    	<button type="button" class="btn btn-primary btn-sm">Consultar</button>
+						    </div> 
                 	</div>
 
                     <table class="table table-responsive-sm table-striped table-borderless table-hover">
@@ -30,22 +37,7 @@
                             </tr> 
                         </thead> 
                         <tbody id="cardexInfos">
-                        	<tr>
-                        		<td>01/01/2001</td>
-                        		<td>Venda</td>
-                        		<td>0</td>
-                        		<td>1</td>
-                        		<td>50</td>
-                        		<td>49</td>
-                        	</tr> 
-                        	<tr>
-                        		<td>01/01/2000</td>
-                        		<td>Compra</td>
-                        		<td>30</td>
-                        		<td>0</td>
-                        		<td>20</td>
-                        		<td>50</td>
-                        	</tr>  
+                        	  
                         </tbody>
                     </table>
                 </div> 
@@ -55,10 +47,16 @@
 </div>
 @endsection 
 @section('javascript')  
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
         //Método para DOM quando estiver carregado
         $(document).ready(function() {  
-             
+            $( function(data) { 
+                //Exibir o plugin de calendário
+                $( ".datepicker" ).datepicker();
+            });  
         }); 
     </script>
 @endsection

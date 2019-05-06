@@ -63,12 +63,30 @@ class CompraController extends Controller
 		            ->where('produto_id', $itens[$i])
 		            ->update(['quantidade_atual' => ($c->quantidade_atual + $qtdProd[$i])]); 
     			}
+                //Inserir dados na cardex
+                DB::table('cardex')->insert([
+                    'produto_id'=>$itens[$i],
+                    'compra_id'=>$compra->id,
+                    'entrada'=>$qtdProd[$i],
+                    'saldo_anterior'=>$consulta[0]->quantidade_atual,
+                    'saldo_atual'=>($consulta[0]->quantidade_atual + $qtdProd[$i]),
+                    'created_at'=>date('Y-m-d H:i:s')
+                ]);  
     		}else{
     			//Senão tiver, inserir novo registro com quantidade da compra 
     			DB::table('posicao_estoque_atual')->insert(
 				    ['produto_id' => $itens[$i], 'quantidade_atual' => $qtdProd[$i]]
 				);
-    		} 
+                //Inserir dados na cardex
+                DB::table('cardex')->insert([
+                    'produto_id'=>$itens[$i],
+                    'venda_avulsa_id'=>$compra->id,
+                    'entrada'=>$qtdProd[$i],
+                    'saldo_anterior'=>0,
+                    'saldo_atual'=>$qtdProd[$i],
+                    'created_at'=>date('Y-m-d H:i:s')
+                ]); 
+    		}  
     	} 
     	return redirect('/estoque/compras');
     }

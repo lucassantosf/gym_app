@@ -19,7 +19,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-8">
                                 <label for="name">Nome*</label>
-                                <input type="text" id="name" name="name" class="form-control" ></input>
+                                <input type="text" id="name" name="name" class="form-control" value="{{@old('name')}}"></input>
                             </div>
                         </div>
 
@@ -72,14 +72,14 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="cpf">CPF*</label>
-                                <input type="text" id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00"> 
+                                <input type="text" id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00" value="{{@old('cpf')}}"> 
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="rg">RG</label>
-                                <input type="text" id="rg" name="rg" class="form-control" placeholder="00.000.000-0"> 
+                                <label for="rg">RG*</label>
+                                <input type="text" id="rg" name="rg" class="form-control" placeholder="00.000.000-0" value="{{@old('rg')}}"> 
                             </div>
                         </div>                         
 
@@ -99,14 +99,14 @@
                         <div class="form-row">
                             <div class="form-group col-md-5">
                                 <label for="phone">Tel.*</label>
-                                <input type="text" id="phone" name="phone" class="form-control" placeholder="(00)0 0000-0000"> 
+                                <input type="text" id="phone" name="phone" class="form-control" placeholder="(00)0 0000-0000" value="{{@old('phone')}}"> 
                             </div>
                         </div> 
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="email">Email*</label>
-                                <input type="email" id="email" name="email" class="form-control"> 
+                                <input type="email" id="email" name="email" class="form-control" value="{{@old('email')}}"> 
                             </div>
                         </div> 
 

@@ -62,9 +62,32 @@ class BalancoController extends Controller
     		$item->quantidade_anterior = $lastSaldo[$i];
     		$item->diferenca_balanco = $diffence[$i];
     		$item->save();
-    		//Atualizar na posição de estoque a quantidade do item 
+    		//Processos cardex
+            $consulta = DB::table('posicao_estoque_atual')->where('produto_id',$prods_id[$i])->get();
+            if(count($consulta)>0){
+                //Se tiver posição
+                DB::table('cardex')->insert([
+                    'produto_id'=>$prods_id[$i],
+                    'balanco_id'=>$balanco->id,
+                    'entrada'=>$qtdProd[$i],
+                    'saldo_anterior'=>$consulta[0]->quantidade_atual,
+                    'saldo_atual'=>$qtdProd[$i],
+                    'created_at'=>date('Y-m-d H:i:s')
+                ]);  
+            }else{
+                //Senão tiver posição
+                DB::table('cardex')->insert([
+                    'produto_id'=>$prods_id[$i],
+                    'balanco_id'=>$balanco->id,
+                    'entrada'=>$qtdProd[$i],
+                    'saldo_anterior'=>0,
+                    'saldo_atual'=>$qtdProd[$i],
+                    'created_at'=>date('Y-m-d H:i:s')
+                ]); 
+            } 
+            //Atualizar na posição de estoque a quantidade do item 
     		//Se tiver registro atualizar senão inserir um novo
-    		DB::table('posicao_estoque_atual')
+            DB::table('posicao_estoque_atual')
 			    ->updateOrInsert(
 			    	['produto_id' => $prods_id[$i]],
        				['quantidade_atual' => $qtdProd[$i]] 
