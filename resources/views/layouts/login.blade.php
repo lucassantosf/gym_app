@@ -5,33 +5,25 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 	<meta name="csrf-token" content="{{csrf_token()}}" charset="utf-8">
+    <link rel="shortcut icon" href="{{url('svg/favicon.png')}}" type="imagem/png" /> 
 	<style type="text/css">
-		body{
-			padding: 30px; 
-			background-image: url({{url('svg/503.svg')}}); 
-			background-repeat: no-repeat;
-			overflow: hidden;
-		}
-		#rowLogin{
+		body,html {  
 			width: 100%;
-			height: 992px;
-		}
+    		height: 100%;
+			background-image: linear-gradient(to bottom, #B0E0E6, white);  
+			background-repeat: no-repeat;
+		} 
 	</style>
 </head>
 <body>
-
 	<div class="container">
-
 		<div class="main">
 			@hasSection('body')
 				@yield('body')
 			@endif	 
 		</div>
-
 	</div>
-
-	<script type="text/javascript" src="{{asset('js/app.js')}}"></script>
-
+	<script type="text/javascript" src="{{asset('js/app.js')}}"></script> 
 	@hasSection('jquery')
 		@yield('jquery')
 	@endif

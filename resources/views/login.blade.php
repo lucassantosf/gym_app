@@ -1,42 +1,34 @@
-@extends('layout_main.app',["current"=>"login"])
-
-@section('body')
-	<style type="text/css">
-		body {overflow: hidden; }
-	</style> 
-	<div class="row" id="rowLogin">
-		 
-		<div class="col-md-3">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalLogin">
-			  Fazer login
-			</button>
-		</div>		 
-		<!-- Modal -->
-		<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog">
-
-		  	<div class="modal-dialog" role="document">
-			    <div class="modal-content">
-			      	<div class="modal-header">
-				        <h5 class="modal-title">Login</h5>
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				          <span aria-hidden="true">&times;</span>
-				        </button>
-			      	</div>
-
-				    <div class="modal-body">
-				      	<form method="POST" action="{{route('login')}}">
-			                    @csrf
-					        <div class="input-group input-group-sl mb-3">	 
-								<input type="text" class="form-control" placeholder="Email" name="email">
-								<input type="password" class="form-control" placeholder="Password" name="password"><br>
-					            <button type="submit" class="btn btn-primary">Logar</button> 
-							</div>
+@extends('layouts.login')  
+@section('body') 
+	<div class="container-fluid">
+		<div class="row" style="padding-top: 130px">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6"> 
+				<div class="card w75" style="background-color: #87CEFA;">
+					<div class="card-title" style="text-align: center"> 
+						<img src="{{url('svg/aladinLogo.png')}}" width="180" style="margin-top: -80px">
+					</div>
+				  	<div class="card-body"> 
+					    <form method="POST" action="{{route('login')}}">
+			                @csrf
+			                <div class="form-group input-group-sm mb-3">
+			                	<label>Email</label>
+    							<input type="text" class="form-control" placeholder="Escreva seu email aqui" name="email" value="{{@old('email')}}">
+			                </div>
+							<div class="form-group input-group-sm mb-3">
+			                	<label>Password</label>
+    							<input type="password" class="form-control" placeholder="Escreva sua senha aqui" name="password">
+			                </div> 
+			                @foreach($errors->all() as $error) 
+						        <div class="alert alert-danger mb-3" role="alert">
+						            <input type="hidden" name="errors[]">{{$error}}</p>
+						        </div>
+						    @endforeach
+				            <button type="submit" class="btn btn-sm" style="background-color: #1E90FF;">Login</button>  
 						</form> 
-				    </div> 
-			    </div>
-		  	</div>		
-		</div>
-		<!-- End Modal --> 
-	</div>
-
+				  	</div>
+				</div>
+			</div>
+		</div>  
+	</div> 
 @endsection 

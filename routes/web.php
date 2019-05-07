@@ -72,6 +72,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/estoque/formCompra','CompraController@formCompra');
 	Route::post('/estoque/formCompra','CompraController@postFormCompra');
 	Route::get('/estoque/compra/{id}/delete','CompraController@destroyCompra');
+	Route::get('/estoque/posicaoEstoque','PosicaoEstoqueController@indexPosicaoEstoque');
 
 	//balanço
 	Route::get('/estoque/balanco','BalancoController@indexBalancos');
@@ -81,8 +82,7 @@ Route::middleware(['auth'])->group(function () {
 
 	//cardex
 	Route::get('/estoque/cardex','CardexController@indexCardex');
-
-	Route::get('/estoque/posicaoEstoque','PosicaoEstoqueController@indexPosicaoEstoque');
+	Route::get('/estoque/cardex/{from}/{to}/{produto_id}','CardexController@searchCardex'); 
 
 	// Clientes e Incluir Clientes
 	Route::get('/clients','ClienteController@indexClients');

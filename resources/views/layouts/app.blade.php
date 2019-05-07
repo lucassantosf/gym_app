@@ -2,34 +2,36 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>Aladin System</title>    
-
+    <meta name="csrf-token" content="{{ csrf_token() }}"> 
+    <title>Aladin System</title>     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css"> 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
-    <!--<style type="text/css">
-        body{ 
-            background: url({{url('svg/academia.png')}}) no-repeat center top; 
-        }
-    </style>-->
+    <link rel="shortcut icon" href="{{url('svg/favicon.png')}}" type="imagem/png" />
+    <style type="text/css">
+        body,html {  
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to bottom, #B0E0E6, white);  
+            background-repeat: no-repeat;
+        } 
+    </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container border">
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                    Home
-                </a>
+        <nav class="navbar navbar-expand-md navbar-light">
+            <div class="container border" style="background-color: #87CEFA;">  
                 <div class="btn-group">
-                    <button class="btn btn-lg " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <a class="navbar-brand" href="{{ url('/home') }}">
+                        <img src="{{url('svg/aladinLogo.png')}}" width="40" height="40"> 
+                    </a>
+                </div> 
+                <div class="btn-group">
+                    <button class="btn btn-lg" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Cadastros
                     </button>
                     <div class="dropdown-menu">
@@ -145,18 +147,14 @@
                     </ul>
                 </div>
             </div>
-        </nav>
-
+        </nav> 
         <main class="py-4">
             @yield('content')
         </main>
-    </div>
-
+    </div> 
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
     @hasSection('javascript')
         @yield('javascript')
-    @endif
-
-    
+    @endif 
 </body>
 </html>

@@ -1,6 +1,6 @@
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
   
-## About this App
+## About Aladin System
 
 <p>
 	Este projeto é um software para gestão fitness onde é desenvolvido e mantido com o Laravel framework, abaixo seguem listadas as funcionalidades implementadas e também as que estão em andamento:
@@ -34,7 +34,7 @@
 	
 	-> Realizar vendas de produtos, e também operação de estorno 
 
-	-> Recebimento de parcelas de planos, e operação de estorno (estorno) 
+	-> Recebimento de parcelas de planos, e operação de estorno 
 
 	-> Tela para consultar parcelas à receber por aluno
 
