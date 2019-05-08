@@ -1,12 +1,12 @@
 @extends('layouts.login')  
 @section('body') 
 	<div class="container-fluid">
-		<div class="row" style="padding-top: 130px">
+		<div class="row" style="padding-top: 150px">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6"> 
 				<div class="card w75" style="background-color: #87CEFA;">
 					<div class="card-title" style="text-align: center"> 
-						<img src="{{url('svg/aladinLogo.png')}}" width="180" style="margin-top: -80px">
+						<img src="{{url('svg/logo.png')}}" width="180" style="margin-top: -80px">
 					</div>
 				  	<div class="card-body"> 
 					    <form method="POST" action="{{route('login')}}">

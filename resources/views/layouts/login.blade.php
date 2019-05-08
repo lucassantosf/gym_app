@@ -13,9 +13,12 @@
 			background-image: linear-gradient(to bottom, #B0E0E6, white);  
 			background-repeat: no-repeat;
 		} 
-	</style>
+	</style> 
 </head>
-<body>
+<body> 
+    <div style="position: absolute; left: 44%">
+        <img src="{{url('svg/aladin.png')}}" width="160" height="70" style="opacity : 0.7"> 
+    </div>  
 	<div class="container">
 		<div class="main">
 			@hasSection('body')
