@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('layouts.app') 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -16,13 +15,23 @@
                         <label class="form-control center" for="id_cliente" style="text-align:center; margin: 0 auto;">Detalhes</label>
                     </div>
                     <table class="table table-borderles table-responsive-sm">
-                      <tbody>
-                        <tr>
-                          <td>Plano</td>
-                          <td>{{$plano_descricao}}</td> 
+                      <tbody> 
+                        <tr style="max-height: 40px">
+                            <td style="padding-top: 20px">Data Negociação</td>
+                            <td> 
+                                <input type="text" id="dataNeg" name="dataNeg" class="form-control"> 
+                            </td> 
+                            <td style="padding-top: 20px">Data inicio</td>
+                            <td> 
+                                <input type="text" id="dataStart" name="dataStart" class="form-control"> 
+                            </td>
                         </tr>
                         <tr>
-                          <td>Duracao</td>
+                          <td colspan="3">Plano</td>
+                          <td>{{$plano_descricao}}</td>  
+                        </tr>
+                        <tr>
+                          <td colspan="3">Duracao</td>
                           <td id="valor_duracao">
                             <input type="hidden" name="plano_id" value="{{$plano_id}}">
                             <input type="hidden" name="cliente_id" value="{{$cliente_id}}">
@@ -34,12 +43,12 @@
                             @endif
                         </tr>
                         <tr>
-                          <td>Valor do contrato</td>
+                          <td colspan="3">Valor do contrato</td>
                           <td id="valor_contrato">R${{$valor_contrato}}                          
                           </td>
                         </tr>
                         <tr>
-                            <td>Adicionar desconto</td>
+                            <td colspan="3">Adicionar desconto</td>
                             <td id="tdDesconto">
                                 <input type="button" class=" btn btn-primary btn-sm" id="add_desconto" value="+">
                             </td>
@@ -70,29 +79,40 @@
                     </table> 
                     <div id="footer"> 
                     </div>
-                </div>
-
+                </div> 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Fechar negociação</button>
                     </form> 
                 </div>
-            </div>
-    
+            </div> 
         </div>
-        @endif
-
+        @endif 
     </div>
-</div>
- 
+</div> 
 @endsection
 @section('javascript')
-    <script type="text/javascript">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript"> 
         let toggleDesconto = true;
         let toggleCond = true;
         let desconto_valor = 0;
+        let now = new Date();
 
         $(document).ready(function() {    
             
+            $('#dataNeg,#dataStart').val(getDate());
+
+            $('#dataNeg,#dataStart').datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+            }); 
+
             $("#add_desconto").click(function(e){
                 if(toggleDesconto){
                     $("#tdDesconto").append("<input type='text' name='desconto' id='desconto' style='width:50px;'>");
@@ -104,18 +124,15 @@
             });
 
             $(".condicao").on("click",function(e){
-                desconto_valor = $("#desconto").val();
-
+                desconto_valor = $("#desconto").val(); 
                 condi = e.target.attributes.value.value;
                 valor = ($("#valor_contrato").text()).replace("R$","");
                 if(desconto_valor){
                     valor_contrato = valor - desconto_valor;
                 }else{
                     valor_contrato = valor;
-                }
-
-                duracao = $("#valor_duracao").text();
-
+                } 
+                duracao = $("#valor_duracao").text(); 
                 if(toggleCond){
                     $("#footer").html('');
                     $("#footer").append('Valor Mensal : R$ '+'<input type="text" value="'+(valor_contrato/condi).toFixed(2)+'" name="valor_final" >'+ ' X '+ condi);
@@ -129,5 +146,9 @@
                 }                 
             });            
         });
+
+        function getDate(){
+            return (now.getDate() +"/"+ (now.getMonth()+1) +"/"+ now.getFullYear());
+        }
     </script>
 @endsection

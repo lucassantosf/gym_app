@@ -1,45 +1,50 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Aladin System</title>
+    <title>Bootstrap Example</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}"> 
     <link rel="shortcut icon" href="{{url('svg/favicon.png')}}" type="imagem/png"/> 
     <link href="https://fonts.googleapis.com/css?family=Katibeh" rel="stylesheet">
-    
-    <link href="{{asset('css/app.css')}}" rel="stylesheet"> 
+
+    <link href="{{asset('css/app.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    
 
     <style type="text/css">
-        body,html {  
-            width: 100%; 
-            background-image: linear-gradient(to bottom, #B0E0E6, white);  
-            background-repeat: no-repeat; 
-            overflow-x: hidden;
-        }  
-        @media screen and (min-width:768px){
-            #imgApp {
-                display:none;
-            }  
-        }
-        @media screen and (max-width:766px){
-            #imgLinkHome,#textM,#imgM{
-                display:none;
-            } 
-        } 
-        .affix {
-          top: 0;
-          width: 100%;
-          z-index: 9999 !important;
-        } 
-        .affix + .container-fluid {
-          padding-top: 70px;
-        }
+
+      body,html {  
+              width: 100%; 
+              background-image: linear-gradient(to bottom, #B0E0E6, white);  
+              background-repeat: no-repeat; 
+              overflow-x: hidden;
+          }  
+          @media screen and (min-width:768px){
+              #imgApp {
+                  display:none;
+              }  
+          }
+          @media screen and (max-width:766px){
+              #imgLinkHome,#textM,#imgM{
+                  display:none;
+              } 
+          } 
+      /* Note: Try to remove the following lines to see the effect of CSS positioning */
+      .affix {
+        top: 0;
+        width: 100%;
+        z-index: 9999 !important;
+      }
+
+      .affix + .container-fluid {
+        padding-top: 70px;
+      }
     </style>
 </head>
-<body>  
+<body>
     <div class="row">
         <div class="col-sm-8" id="imgM">
             <img src="{{url('svg/aladin.png')}}" width="160" height="70" style="margin-left: 70px;opacity : 0.7"> 
@@ -47,9 +52,9 @@
         <div class="col-sm-4" id="textM">
             <label style="margin-top: 20px; font-family: 'Katibeh', cursive; font-size: 23px;opacity : 0.7">The most fitness software in the World</label> 
         </div>
-    </div>    
-    <div class="navbar navbar-inverse navbar-expand-lg navbar-light" style="background-color: #87CEFA;" data-spy="affix" data-offset-top="197"> 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#itens">
+    </div>
+    <nav class="navbar navbar-inverse navbar-expand-lg navbar-light" style="background-color: #87CEFA;" data-spy="affix" data-offset-top="197">
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#itens">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="itens" style="padding-left: 20px">
@@ -169,7 +174,7 @@
                 @endguest
             </ul>
         </div> 
-    </div>     
+    </nav>
     @yield('content') 
     <script type="text/javascript" src="{{asset('js/app.js')}}"> 
     </script>

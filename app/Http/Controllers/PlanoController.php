@@ -259,6 +259,7 @@ class PlanoController extends Controller
 
     //Este método trata os dados para a tela de conferir o plano na negociação
     public function postConferirNeg(Request $request){  
+
         $plano_id = $request->input('selectPlan');
         $cliente_id = $request->input('id_cliente');
         $plano = Plano::find($plano_id);
@@ -274,8 +275,8 @@ class PlanoController extends Controller
         return view('operacao.conferirContrato',compact('valor_contrato','plano_descricao','duracao','plano_id','cliente_id','itens'));
     }
 
-    //Este método trata o post da venda do plano, gera todas as parcelas e torna o aluno para 'ativo'
-    public function postVenda(Request $request){
+    //Este método trata o post da venda do plano, gera todas as parcelas e torna aluno 'ativo'
+    public function postVenda(Request $request){ 
         $venda = new Venda();
         $venda->cliente_id = $request->input('cliente_id');
         $venda->plano_id = $request->input('plano_id');
@@ -289,9 +290,10 @@ class PlanoController extends Controller
         }else{
             $valor_total = ($valor_mensal*$condicao); 
             $venda->value_total = $valor_total;           
-        } 
-        $venda->dt_inicio = date('d/m/Y');//data atual
-        $venda->dt_fim = date('d/m/Y', strtotime("+".$duracao." months") );//somar a duracao a data atual
+        }  
+        $venda->dt_neg = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dataNeg'))))));//data negociacao
+        $venda->dt_inicio = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dataStart'))))));//data inicio 
+        $venda->dt_fim = date('Y-m-d', strtotime("+".$duracao."months",strtotime(date('Y-m-d',strtotime(str_replace('/', '-',$request->input('dataStart'))))))); //data fim de acordo à duracao 
         $venda->save();
         //salvar cada parcela no banco
         $cliente = Cliente::find($venda->cliente_id);//procurar o nome do cliente para salvar na parcela
@@ -302,7 +304,6 @@ class PlanoController extends Controller
             $parcela->cliente_id = $venda->cliente_id;
             $parcela->value = $valor_mensal;
             $parcela->save(); 
-
         }
         //Se houver itens_turmas selecionados indica que a negociação tem modalidade com turma, logo incluir nestes horários
         $itens = $request->input('itens');  

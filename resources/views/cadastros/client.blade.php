@@ -5,15 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header input-group input-group-md mb-3">
-
+                <div class="card-header input-group input-group-md mb-3"> 
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Listagem de Clientes</span>
                     </div>
-                    <input type="text" class="form-control" id="txtBusca" placeholder="Buscar..."/>
-
-                </div>
-
+                    <input type="text" class="form-control" id="txtBusca" placeholder="Buscar..."/> 
+                </div> 
                 <div class="card-body" id="ulItens">
                     <ul class="list-group">
                     @if(isset($clients))
@@ -22,15 +19,12 @@
                         @endforeach
                     @endif
                     </ul>
-                </div>
-
-            </div>
-
+                </div> 
+            </div> 
         </div>
     </div>
 </div>
-@endsection
-
+@endsection 
 @section('javascript')
     <script type="text/javascript">
         $(function(){

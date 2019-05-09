@@ -396,24 +396,27 @@
         function progressBarDuracao(){
             //Barra de progresso duração do plano
             //recuperar valor das datas do plano
-            dt_inicio = $("#dt_inicio").html();
-            dt_fim = $("#dt_fim").html();
-            //criar obj para datas inicio e fim
-            from1 = dt_inicio; 
-            numbers1 = from1.match(/\d+/g); 
-            date1 = new Date(numbers1[2], numbers1[1]-1,numbers1[0]);
-            from2 = dt_fim; 
-            numbers2 = from2.match(/\d+/g);
-            date2 = new Date(numbers2[2], numbers2[1]-1, numbers2[0]);
+            dt_inicio = $("#dt_inicio").html(); 
+            dt_fim = $("#dt_fim").html();  
+            //criar obj para datas inicio e fim 
+            numbers1 = dt_inicio.split('-'); 
+            date1 = new Date(numbers1[0], numbers1[1] - 1,numbers1[2]); 
+            numbers2 = dt_fim.split('-'); 
+            date2 = new Date(numbers2[0], numbers2[1] - 1,numbers2[2]);
             //calcular diferença de dias entre inicio fim
             timeDiff = Math.abs(date2.getTime() - date1.getTime());
             diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
             //calcular diferença de dias entre inicio dt atual            
-            today = new Date();            
-            timeDiff2 = Math.abs(today.getTime() - date1.getTime());
-            diffDays2 = Math.ceil(timeDiff2 / (1000 * 3600 * 24)); 
-            //calcular o valor da progressBar
-            x = (100 * (diffDays2)) / diffDays;           
+            today = new Date();    
+            timeDiff2 = Math.abs(today.getTime() - date1.getTime()); 
+            diffDays2 = Math.ceil(timeDiff2 / (1000 * 3600 * 24));  
+            //calcular o valor da progressBar 
+            if(date1 > today) {
+                //Se o plano iniciar em data superior à atual zerar a progressBar
+                x = 0;
+            }else{
+                x = (100 * ((diffDays2)-1)) / diffDays;   
+            } 
             $("#progressDt").css('width',x+'%');
         }
 
@@ -486,5 +489,3 @@
         }
     </script>
 @endsection
-
-
