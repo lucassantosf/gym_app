@@ -20,6 +20,7 @@ class CreateVendasTable extends Migration
             $table->integer('plano_id')->unsigned();
             $table->foreign('plano_id')->references('id')->on('planos');
             $table->float('value_total');
+            $table->string('status')->default('Ativo');
             $table->date('dt_neg');
             $table->date('dt_inicio');
             $table->date('dt_fim');

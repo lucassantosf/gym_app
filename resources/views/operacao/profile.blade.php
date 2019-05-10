@@ -10,12 +10,13 @@
                     @if(isset($client))
                         <div class="alert alert-primary" role="alert">
                             <h4>{{$client->name}}</h4> 
-                            <h5>matricula {{$client->id}}</h5>                            
+                            <h5>matricula {{$client->id}} - {{$client->situaçao}}</h5>                            
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" style="">
                                 Dados Pessoais
                             </button>
                             <a href="/clients/caixaAberto/{{$client->id}}" class="btn btn-primary btn-sm">Caixa em Aberto</a>
                             <a href="/vendas/viewWithClient/{{$client->id}}/{{$client->name}}" class="btn btn-primary btn-sm">Realizar Vendas</a>
+                            <a href="/clients/novoContrato/{{$client->id}}">Novo Contrato</a>
                         </div> 
                         <!-- Modal de edição -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -218,23 +219,33 @@
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="planos_historico" role="tabpanel" aria-labelledby="pills_planos_historico">
-                                @if($isAtivo) 
-                                    <div class="alert alert-primary" role="alert">
-                                        {{$plano_details->name}} <a href="/clients/estornarContrato/{{$planoC->id}}/{{$planoC->cliente_id}}" class="btn btn-outline-danger btn-sm">Estornar</a>
-                                    </div>
-                                    <div class="alert alert-primary" style="text-align:center; margin: 0 auto;" role="alert">
-                                        Duração do contrato<br>
-                                        <label id="dt_inicio">{{$planoC->dt_inicio}} - </label>
-                                        <label id="dt_fim">{{$planoC->dt_fim}}</label>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-success" role="progressbar"  aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" id="progressDt"></div>
+                                @if(count($vendas)>0) 
+                                    @foreach($vendas as $v) 
+                                        <div class="alert alert-primary" role="alert">  
+                                            @foreach($planos as $array)
+                                                @foreach($array as $p) 
+                                                    @if($p->id == $v->plano_id )
+                                                        {{$p->name}} 
+                                                    @endif  
+                                                @endforeach
+                                            @endforeach  
+                                            <a href="/clients/estornarContrato/{{$v->id}}/{{$v->cliente_id}}" class="btn btn-outline-danger btn-sm">Estornar</a>
                                         </div>
-                                    </div><br>                            
-                                    <div class="alert alert-primary" role="alert">
-                                        Valor Total Plano: R$ {{$planoC->value_total}} 
-                                    </div>          
-                                @else <a href="/clients/novoContrato/{{$client->id}}">Novo Contrato</a>
-                                @endif 
+                                        <div class="alert alert-primary" style="text-align:center; margin: 0 auto;" role="alert">
+                                            Duração do contrato<br>
+                                            <label id="dt_inicio">{{$v->dt_inicio}} - </label>
+                                            <label id="dt_fim">{{$v->dt_fim}}</label>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar"  aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" id="progressDt"></div>
+                                            </div>
+                                        </div>                            
+                                        <div class="alert alert-primary" role="alert">
+                                            Valor Total Plano: R${{$v->value_total}} 
+                                        </div>  
+                                    @endforeach
+                                @else
+                                    Sem planos
+                                @endif  
                             </div>
                             <div class="tab-pane fade" id="parcelas_historico" role="tabpanel" aria-labelledby="pills-profile-tab">
                                 <table class="table table-hover">

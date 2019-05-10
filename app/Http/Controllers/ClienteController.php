@@ -16,7 +16,7 @@ use App\ItemRecibo;
 class ClienteController extends Controller
 {   
     //Tela de consultar clientes
-    public function indexClients(){
+    public function indexClients(){ 
     	$clients = Cliente::all();
     	return view('cadastros.client',compact('clients'));
     }
@@ -93,28 +93,35 @@ class ClienteController extends Controller
     //Este método busca dados de um cliente - plano, parcelas, recibos, compras, etc...
     public function showClient($id){
     	$client = Cliente::find($id);
-    	if(isset($client)){
-            $isAtivo = false;
+    	if(isset($client)){ 
             $parcelas = [];
+            $planos = [];
+            $vendas = [];  
             //Verifica se o aluno possui plano
-            $planoC = DB::table('vendas')->where([
+            $consulta2 = DB::table('vendas')->where([
                 ['cliente_id',$client->id],
-                ['deleted_at',NULL]
-            ])->first();
+                ['deleted_at',NULL],
+            ])->get();
 
-            //Se aluno possuir plano - consultar detalhes cadastrais do plano
-            if ($planoC) {
+            foreach ($consulta2 as $obj) {  
+                $consulta = DB::table('planos')->where('id',$obj->plano_id)->get();
+                array_push($planos, $consulta);
+                foreach ($consulta as $planoObj) {
+                    echo $planoObj->name;
+                }
+
+                array_push($vendas, $obj);
                 $isAtivo = true;
-                $plano_details = DB::table('planos')->where('id',$planoC->plano_id)->first();
-            }
+            } 
+                exit();
 
             //Consulta de Parcelas
             $parcelasConsulta1 = DB::table('parcelas')
-                ->where([['cliente_id',$client->id],['deleted_at',NULL],])
-                //->orWhere([['venda_avulsa_id','!=',NULL],['cliente_id',$client->id],])
+                ->where([['cliente_id',$client->id],['deleted_at',NULL],]) 
                 ->get();
 
             if (count($parcelasConsulta1)>0) {
+
                 array_push($parcelas, $parcelasConsulta1);
             }             
             //--------Fim consulta de Parcelas  
@@ -143,7 +150,7 @@ class ClienteController extends Controller
                     }
                 }
             }   
-            return view('operacao.profile',compact('client','isAtivo','plano_details','planoC','parcelas','recibos','itens'));
+            return view('operacao.profile',compact('client','vendas','planos','isAtivo','parcelas','recibos','itens','i'));
     	}else{
             echo 'Cliente inexistente';
         }
