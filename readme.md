@@ -26,9 +26,11 @@
 
 	-> Cadastrar novos clientes
 
+	-> Layout responsivo do sistema
+
 	-> Manter controle da carteira dos clientes visitantes e ativos
 
-	-> Profile do cliente para consultar seu histórico dentro da empresa
+	-> Profile do cliente para consultar histórico dentro da empresa
 
 	-> Negociar planos e modalidadas para clientes 
 	
@@ -41,11 +43,24 @@
 	-> Negociar planos com horários fixos de turmas 
 
 	-> Tela para Gestão das turmas 
+
+	-> Gestão de Estoque 
+
+	-------------Lançar Compras (registrar nº Nota Fiscal, fornecedor e produtos)
+ 
+	-------------Realizar Balanços (atualizar posição de estoque com inventário)
+
+	-------------Consultar Cardex (ver movimentações em um período para determinado produto)
+
+	-------------Consultar posição estoque atual para um produto
+
 </p>
 
 <h2>Funcionalidades em andamento</h2>
 
 <p>	
-	-> Gestão de Estoque 
-</p>
-  
+	-> Informações Gerenciais da empresa através de relatórios
+
+	-> Melhorias em design do sistema
+
+</p>  

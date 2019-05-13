@@ -19,6 +19,7 @@ class CreateVendasTable extends Migration
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->integer('plano_id')->unsigned();
             $table->foreign('plano_id')->references('id')->on('planos');
+            $table->string('plano_name');
             $table->float('value_total');
             $table->string('status')->default('Ativo');
             $table->date('dt_neg');

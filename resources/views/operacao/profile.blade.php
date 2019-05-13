@@ -4,8 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">Detalhes de Cliente < <a href="/clients">Voltar</a></div>
+            <div class="card"> 
                 <div class="card-body">
                     @if(isset($client))
                         <div class="alert alert-primary" role="alert">
@@ -222,24 +221,16 @@
                                 @if(count($vendas)>0) 
                                     @foreach($vendas as $v) 
                                         <div class="alert alert-primary" role="alert">  
-                                            @foreach($planos as $array)
-                                                @foreach($array as $p) 
-                                                    @if($p->id == $v->plano_id )
-                                                        {{$p->name}} 
-                                                    @endif  
-                                                @endforeach
-                                            @endforeach  
-                                            <a href="/clients/estornarContrato/{{$v->id}}/{{$v->cliente_id}}" class="btn btn-outline-danger btn-sm">Estornar</a>
-                                        </div>
-                                        <div class="alert alert-primary" style="text-align:center; margin: 0 auto;" role="alert">
+                                            {{$v->plano_name}}
+                                            <a href="/clients/estornarContrato/{{$v->id}}/{{$v->cliente_id}}" class="btn btn-outline-danger btn-sm">Estornar</a><br>
                                             Duração do contrato<br>
-                                            <label id="dt_inicio">{{$v->dt_inicio}} - </label>
-                                            <label id="dt_fim">{{$v->dt_fim}}</label>
-                                            <div class="progress">
+                                             
+                                            <label id="dt_inicio">{{$v->dt_inicio}}</label>
+                                         
+                                            <label id="dt_fim" style="float: right">{{$v->dt_fim}}</label> 
+                                            <div class="progress"> 
                                                 <div class="progress-bar bg-success" role="progressbar"  aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" id="progressDt"></div>
-                                            </div>
-                                        </div>                            
-                                        <div class="alert alert-primary" role="alert">
+                                            </div> 
                                             Valor Total Plano: R${{$v->value_total}} 
                                         </div>  
                                     @endforeach

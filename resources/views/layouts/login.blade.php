@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 	<meta name="csrf-token" content="{{csrf_token()}}" charset="utf-8">
-    <link rel="shortcut icon" href="{{url('svg/favicon.png')}}" type="imagem/png" /> 
+    <link rel="shortcut icon" href="{{url('icon/favicon.png')}}" type="imagem/png" /> 
 	<style type="text/css">
 		body,html {  
 			width: 100%;
@@ -17,7 +17,7 @@
 </head>
 <body> 
     <div style="position: absolute; left: 44%">
-        <img src="{{url('svg/aladin.png')}}" width="160" height="70" style="opacity : 0.7"> 
+        <img src="{{url('icon/aladin.png')}}" width="160" height="70" style="opacity : 0.7"> 
     </div>  
 	<div class="container">
 		<div class="main">

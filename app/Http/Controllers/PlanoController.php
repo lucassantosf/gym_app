@@ -279,7 +279,11 @@ class PlanoController extends Controller
     public function postVenda(Request $request){ 
         $venda = new Venda();
         $venda->cliente_id = $request->input('cliente_id');
-        $venda->plano_id = $request->input('plano_id');
+        $venda->plano_id = $request->input('plano_id'); 
+        $plano = Plano::find($venda->plano_id);
+        if(isset($plano)){
+            $venda->plano_name = $plano->name;
+        }
         $valor_mensal =  $request->input('valor_final'); 
         $condicao =  $request->input('condicao'); //condicao da negociação
         $duracao =  $request->input('duracao'); //duracao

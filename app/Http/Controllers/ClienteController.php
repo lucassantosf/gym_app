@@ -23,6 +23,7 @@ class ClienteController extends Controller
 
     //Retornar o formulário de incluir cliente
     public function indexClientsAdd(){
+
     	return view('cadastros.formClientAdd');
     }
 
@@ -94,27 +95,18 @@ class ClienteController extends Controller
     public function showClient($id){
     	$client = Cliente::find($id);
     	if(isset($client)){ 
+            $isAtivo = true; 
             $parcelas = [];
             $planos = [];
-            $vendas = [];  
+            $vendas = [];   
             //Verifica se o aluno possui plano
             $consulta2 = DB::table('vendas')->where([
                 ['cliente_id',$client->id],
                 ['deleted_at',NULL],
-            ])->get();
-
+            ])->get(); 
             foreach ($consulta2 as $obj) {  
-                $consulta = DB::table('planos')->where('id',$obj->plano_id)->get();
-                array_push($planos, $consulta);
-                foreach ($consulta as $planoObj) {
-                    echo $planoObj->name;
-                }
-
                 array_push($vendas, $obj);
-                $isAtivo = true;
-            } 
-                exit();
-
+            }  
             //Consulta de Parcelas
             $parcelasConsulta1 = DB::table('parcelas')
                 ->where([['cliente_id',$client->id],['deleted_at',NULL],]) 
@@ -150,7 +142,7 @@ class ClienteController extends Controller
                     }
                 }
             }   
-            return view('operacao.profile',compact('client','vendas','planos','isAtivo','parcelas','recibos','itens','i'));
+            return view('operacao.profile',compact('client','vendas','isAtivo','parcelas','recibos','itens','i'));
     	}else{
             echo 'Cliente inexistente';
         }
