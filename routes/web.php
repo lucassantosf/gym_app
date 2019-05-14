@@ -115,4 +115,6 @@ Route::middleware(['auth'])->group(function () {
 
 	//Relatórios
 	Route::get('/relatorios/clients','RelatorioController@viewRelatorioClientes');
+	Route::get('/relatorios/clients/search','RelatorioController@searchRelatorioClientes');
+
 });  

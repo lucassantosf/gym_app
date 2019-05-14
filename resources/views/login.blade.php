@@ -6,7 +6,7 @@
 			<div class="col-sm-6"> 
 				<div class="card w75" style="background-color: #87CEFA;">
 					<div class="card-title" style="text-align: center"> 
-						<img src="{{url('svg/logo.png')}}" width="180" style="margin-top: -80px">
+						<img src="{{url('icon/logo.png')}}" width="180" style="margin-top: -80px">
 					</div>
 				  	<div class="card-body"> 
 					    <form method="POST" action="{{route('login')}}">

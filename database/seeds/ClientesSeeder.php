@@ -15,8 +15,9 @@ class ClientesSeeder extends Seeder
         DB::table('clientes')->insert([
             'name' => 'Robherval Antunes',
             'name_mother' => 'Sunizall Ango',
-            'name_father' => 'Chalebes Karll',
-            'sexo' => 1,
+            'name_father' => 'Chaleb2es Karll',
+            'sexo' => 1, 
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '349.000.000-51',
             'rg' => '34.165.232-5',
@@ -31,12 +32,14 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
             'name' => 'Formosandrino Lifi Pereira',
             'name_mother' => 'Ant Plak',
             'name_father' => 'Hernan Abrr',
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'sexo' => 1,
             'est_civil' => 1,
             'cpf' => '523.592.190-90',
@@ -52,6 +55,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -59,6 +63,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Batisttw Afflw',
             'name_father' => 'Gertttt Juneer',
             'sexo' => 1,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '523.592.190-90',
             'rg' => '34.168.123-4',
@@ -73,6 +78,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -80,6 +86,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'QueueIl Linnuss',
             'name_father' => 'FeliX Abgaaalerd',
             'sexo' => 1,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '523.592.190-90',
             'rg' => '34.168.123-4',
@@ -94,6 +101,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -101,6 +109,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Ananeiast Kuruminoss',
             'name_father' => 'Pastrrer Hurlerr',
             'sexo' => 1,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '523.592.190-90',
             'rg' => '34.168.123-4',
@@ -115,6 +124,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -122,6 +132,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Arnir Blackaa',
             'name_father' => 'Pekeus Jaaka',
             'sexo' => 1,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '844.864.250-30',
             'rg' => '43.640.708-5',
@@ -136,6 +147,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -143,6 +155,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Hokert Gea',
             'name_father' => 'Deliss Flack',
             'sexo' => 1,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '293.838.700-87',
             'rg' => '24.269.158-4',
@@ -157,6 +170,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -164,6 +178,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Kghjull Abdu',
             'name_father' => 'Azile Hyong',
             'sexo' => 1,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '968.521.980-06',
             'rg' => '47.690.105-4',
@@ -178,6 +193,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -185,6 +201,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Kandu Jukiart',
             'name_father' => 'Kartej Juty Kured',
             'sexo' => 1,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '968.521.980-06',
             'rg' => '47.690.105-4',
@@ -199,6 +216,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -206,6 +224,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Antrofada Neo Neorl',
             'name_father' => 'Kreee Bob Nerte',
             'sexo' => 2,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '968.521.980-06',
             'rg' => '47.690.105-4',
@@ -220,6 +239,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -227,6 +247,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Herlele Jas Jasey',
             'name_father' => 'Marshall Centure',
             'sexo' => 1,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '968.521.980-06',
             'rg' => '47.690.105-4',
@@ -241,6 +262,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -248,6 +270,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Caiçara da Silva',
             'name_father' => 'Romano de Jesus',
             'sexo' => 1,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '968.521.980-06',
             'rg' => '47.690.105-4',
@@ -262,6 +285,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -269,6 +293,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Contradis Rulian',
             'name_father' => 'Kerlitao da Sonn',
             'sexo' => 2,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '968.521.980-06',
             'rg' => '47.690.105-4',
@@ -283,6 +308,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
     
         DB::table('clientes')->insert([
@@ -290,6 +316,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Kerteed Abzudiu',
             'name_father' => 'Hernan Canoas',
             'sexo' => 1,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '968.521.980-06',
             'rg' => '47.690.105-4',
@@ -302,8 +329,10 @@ class ClientesSeeder extends Seeder
             'comple' => 'Logo ali',
             'neigh' => 'Jardim Sorocaba Park',
             'country' => 'Brazil',
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -311,6 +340,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Obasias Ob Sant',
             'name_father' => 'Lerren Juik Orre',
             'sexo' => 2,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '968.521.980-06',
             'rg' => '47.690.105-4',
@@ -325,6 +355,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -332,6 +363,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Franquesstein Kerly Basis',
             'name_father' => 'Lerren Juik Orre II',
             'sexo' => 2,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '968.521.980-06',
             'rg' => '47.690.105-4',
@@ -346,6 +378,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -354,6 +387,7 @@ class ClientesSeeder extends Seeder
             'name_father' => 'Lauroan Kare',
             'sexo' => 2,
             'est_civil' => 1,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'cpf' => '968.521.980-06',
             'rg' => '47.690.105-4',
             'rne' => '',
@@ -367,6 +401,7 @@ class ClientesSeeder extends Seeder
             'country' => 'Brazil',
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
 
         DB::table('clientes')->insert([
@@ -374,6 +409,7 @@ class ClientesSeeder extends Seeder
             'name_mother' => 'Hioran Blass',
             'name_father' => 'Lokamian Kerlitazzo',
             'sexo' => 2,
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'est_civil' => 1,
             'cpf' => '968.521.980-06',
             'rg' => '47.690.105-4',
@@ -386,8 +422,10 @@ class ClientesSeeder extends Seeder
             'comple' => 'Logo ali',
             'neigh' => 'Jardim Sorocaba Park',
             'country' => 'Brazil',
+            'dt_born'=>date('Y-m-d',strtotime('1980-03-14')),
             'uf' => 'SP',
             'city' => 'Sorocaba',
+            'created_at'=>date('Y-m-d'),
         ]);
     }
 }

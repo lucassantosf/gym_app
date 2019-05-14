@@ -19,7 +19,7 @@ class CreateClientesTable extends Migration
             $table->timestamp('dt_born')->nullable();
             $table->string('name_mother')->nullable();
             $table->string('name_father')->nullable();
-            $table->float('sexo')->nullable();
+            $table->integer('sexo')->nullable();
             $table->float('est_civil')->nullable();
             $table->string('cpf');
             $table->string('rg')->nullable();
