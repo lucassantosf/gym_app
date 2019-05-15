@@ -41,6 +41,11 @@
                                 <input type="hidden" name="itens[]" value="{{$i}}"> 
                                 @endforeach
                             @endif
+                            @if(isset($modals))
+                                @foreach($modals as $m) 
+                                <input type="hidden" name="modals[]" value="{{$m}}"> 
+                                @endforeach
+                            @endif
                         </tr>
                         <tr>
                           <td colspan="3">Valor do contrato</td>

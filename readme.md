@@ -60,7 +60,5 @@
 
 <p>	
 	-> Informações Gerenciais da empresa através de relatórios
-
 	-> Melhorias em design do sistema
-
 </p>  

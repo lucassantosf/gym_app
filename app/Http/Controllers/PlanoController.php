@@ -262,6 +262,7 @@ class PlanoController extends Controller
 
         $plano_id = $request->input('selectPlan');
         $cliente_id = $request->input('id_cliente');
+        $modals = $request->input('modals');
         $plano = Plano::find($plano_id);
         $plano_descricao = $plano->name;
         $duracao = $request->input('duracao');
@@ -272,7 +273,7 @@ class PlanoController extends Controller
         }
         $valor_contrato = $duracao*$value_total;
         $itens = $request->input('itens_turmas');  
-        return view('operacao.conferirContrato',compact('valor_contrato','plano_descricao','duracao','plano_id','cliente_id','itens'));
+        return view('operacao.conferirContrato',compact('valor_contrato','plano_descricao','duracao','plano_id','cliente_id','itens','modals'));
     }
 
     //Este método trata o post da venda do plano, gera todas as parcelas e torna aluno 'ativo'
@@ -288,6 +289,8 @@ class PlanoController extends Controller
         $condicao =  $request->input('condicao'); //condicao da negociação
         $duracao =  $request->input('duracao'); //duracao
         $desconto = $request->input('desconto'); //desconto
+        $modals = $request->input('modals'); //modals
+
         if(isset($desconto)){
             $valor_total = ($valor_mensal*$condicao) - $desconto; 
             $venda->value_total = $valor_total;                   
@@ -298,7 +301,8 @@ class PlanoController extends Controller
         $venda->dt_neg = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dataNeg'))))));//data negociacao
         $venda->dt_inicio = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dataStart'))))));//data inicio 
         $venda->dt_fim = date('Y-m-d', strtotime("+".$duracao."months",strtotime(date('Y-m-d',strtotime(str_replace('/', '-',$request->input('dataStart'))))))); //data fim de acordo à duracao 
-        $venda->save();
+        $venda->duracao = $duracao;
+        $venda->save(); 
         //salvar cada parcela no banco
         $cliente = Cliente::find($venda->cliente_id);//procurar o nome do cliente para salvar na parcela
         for($i=0 ; $i<$condicao; $i++){
@@ -328,6 +332,14 @@ class PlanoController extends Controller
                     $item->save();
                 } 
             }  
+        } 
+        //Salvar itens na table modalidades_negociadas_planos
+        foreach ($modals as $m) { 
+            DB::table('modalidades_negociadas_planos')->insert([
+                'modal_id'=>$m,
+                'cliente_id'=>$cliente->id,
+                'venda_id'=>$venda->id,
+            ]);
         } 
         //Tornar aluno ativo
         $cliente->situaçao = 'Ativo';

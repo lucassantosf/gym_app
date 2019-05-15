@@ -19,7 +19,7 @@ class CreateItemBalancosTable extends Migration
             $table->foreign('balanco_id')->references('id')->on('balancos');
             $table->integer('produto_id')->unsigned();
             $table->foreign('produto_id')->references('id')->on('produtos');
-            $table->string('produto_nome');
+            $table->string('produto_nome'); 
             $table->integer('quantidade_balanco');
             $table->integer('quantidade_anterior');
             $table->integer('diferenca_balanco'); 
