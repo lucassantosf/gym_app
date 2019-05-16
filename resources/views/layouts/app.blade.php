@@ -114,18 +114,15 @@
                         <a class="navbar-brand" href="{{ url('/relatorios/clients') }}">
                             Clientes
                         </a><br>
-                        <a class="navbar-brand" href="{{ url('/home') }}">
+                        <a class="navbar-brand" href="{{ url('/relatorios/faturamento') }}">
                             Faturamento
                         </a><br>
-                        <a class="navbar-brand" href="{{ url('/home') }}">
+                        <a class="navbar-brand" href="{{ url('/relatorios/receita') }}">
                             Receita
                         </a>
-                        <a class="navbar-brand" href="{{ url('/home') }}">
+                        <a class="navbar-brand" href="{{ url('/relatorios/parcelas') }}">
                             Parcelas
-                        </a>
-                        <a class="navbar-brand" href="{{ url('/home') }}">
-                            Vendas Avulsas
-                        </a>
+                        </a> 
                     </div>
                 </div>   
                 <a class="navbar-brand" href="{{ url('/clients') }}">

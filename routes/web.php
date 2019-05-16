@@ -1,7 +1,6 @@
 <?php
 
 Route::get('/', 'LoginController@index') ;
-
 //Direcionamento do Logout
 Route::get('logout', 'LoginController@logout');
 
@@ -116,5 +115,10 @@ Route::middleware(['auth'])->group(function () {
 	//Relatórios
 	Route::get('/relatorios/clients','RelatorioController@viewRelatorioClientes');
 	Route::get('/relatorios/clients/search','RelatorioController@searchRelatorioClientes');
-
+	Route::get('/relatorios/faturamento','RelatorioController@viewRelatorioFaturamento');
+	Route::get('/relatorios/faturamento/search','RelatorioController@searchRelatorioFaturamento');
+	Route::get('/relatorios/receita','RelatorioController@viewRelatorioReceita');
+	Route::get('/relatorios/receita/search','RelatorioController@searchRelatorioReceita');
+	Route::get('/relatorios/parcelas','RelatorioController@viewRelatorioParcelas');
+	Route::get('/relatorios/parcelas/search','RelatorioController@searchRelatorioParcelas'); 
 });  

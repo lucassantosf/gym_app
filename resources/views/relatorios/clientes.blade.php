@@ -6,7 +6,7 @@
             <div class="card"> 
                 @if($i==0) 
                     <div class="card-header">
-                    Filtrar Clientes
+                        <h5>Filtrar Clientes</h5> 
                     </div>
                     <div class="card-body"> 
                         <form action="/relatorios/clients/search" method="GET">

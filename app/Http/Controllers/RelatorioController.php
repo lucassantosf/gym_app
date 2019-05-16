@@ -9,7 +9,7 @@ use App\Modalidade;
 
 class RelatorioController extends Controller
 {
-
+	//Este método exibe apenas a view do relatório de clientes
 	public function viewRelatorioClientes(){
 		$i = 0;
 		$planos = Plano::all();
@@ -17,6 +17,7 @@ class RelatorioController extends Controller
 		return view('relatorios.clientes',compact('planos','modals','i'));
 	}
 
+	//Este método pesquisa com uma unica string na tabela de clientes e vendas_planos a situação da carteira de clientes -> este relatório pesquisa por dt_cadastro, dt_inicio, situação, sexo, duracao, plano, modalidade
 	public function searchRelatorioClientes(Request $request){
 		$i = 1;
 		$raw = ' WHERE ';
@@ -174,5 +175,102 @@ class RelatorioController extends Controller
 		//echo "SELECT * FROM ".$raw3.$raw5." academia.clientes as c".$raw.$raw2.$raw4.'<br>';
 		//exit();
 		return view('relatorios.clientes',compact('i','consulta'));
+	}
+
+	//Este método exibe apenas a view do relatório de faturamento
+	public function viewRelatorioFaturamento(){
+		$i = 0; 
+		return view('relatorios.faturamento',compact('i'));
 	} 
+
+	//Este método consulta por um período quanto foi vendido de vendas_planos e vendas_avulas
+	public function searchRelatorioFaturamento(Request $request){ 
+		$i = 1;
+		$data = []; 
+		$dateStart = $request->input('dateStart');
+		$dateEnd = $request->input('dateEnd');
+		//Validar se datas estão vazias
+		if(!$dateStart && !$dateEnd){ 
+			$msg = 'Informar pelo menos uma data para consulta!';
+			return view('relatorios.faturamento',compact('i','msg'));
+		}
+		$checkPlan = $request->input('checkPlan');
+		$checkVenda = $request->input('checkVenda');
+		//Converter as datas para consultas
+		$from = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dateStart'))))));
+		$to = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dateEnd')))))); 
+		if(($checkPlan && $checkVenda) || (!$checkPlan && !$checkVenda)) {  
+			if($dateStart && $dateEnd){  
+				array_push($data , $this->consultar_vendas_planos($from,$to)); 
+				array_push($data , $this->consultar_vendas_avulsas($from,$to)); 
+			}else if($dateStart){
+				array_push($data , $this->consultar_vendas_planos($from,NULL));  
+				array_push($data , $this->consultar_vendas_avulsas($from,NULL));  
+			}else if($dateEnd){
+				array_push($data , $this->consultar_vendas_planos(NULL,$to));  
+				array_push($data , $this->consultar_vendas_avulsas(NULL,$to));  
+			} 
+		}else if($checkPlan){ 
+			if($dateStart && $dateEnd){  
+				array_push($data , $this->consultar_vendas_planos($from,$to)); 
+			}else if($dateStart){
+				array_push($data , $this->consultar_vendas_planos($from,NULL));   
+			}else if($dateEnd){
+				array_push($data , $this->consultar_vendas_planos(NULL,$to));   
+			}  
+		}else if($checkVenda){  
+			if($dateStart && $dateEnd){   
+				array_push($data , $this->consultar_vendas_avulsas($from,$to)); 
+			}else if($dateStart){   
+				array_push($data , $this->consultar_vendas_avulsas($from,NULL));  
+			}else if($dateEnd){  
+				array_push($data , $this->consultar_vendas_avulsas(NULL,$to));  
+			} 
+		} 
+		return view('relatorios.faturamento',compact('i','data'));
+	}
+
+	//Este método apenas consulta por um perido as vendas_planos - auxilia o método searchRelatorioFaturamento
+	private function consultar_vendas_planos($from = NULL,$to = NULL){  
+		$consulta = DB::select(DB::raw("SELECT * FROM academia.vendas WHERE ".$this->getRaw($from,$to)));
+		return $consulta;
+	}
+
+	//Este método apenas consulta por um perido as vendas_avulsas - auxilia o método searchRelatorioFaturamento
+	private function consultar_vendas_avulsas($from = NULL,$to = NULL){  
+		$consulta = DB::select(DB::raw("SELECT * FROM academia.venda_avulsas WHERE ".$this->getRaw($from,$to)));
+		return $consulta;
+	}
+
+	//Este método auxiliad a criar string da query para os métodos consultar_vendas_avulsas e consultar_vendas_planos
+	private function getRaw($from = NULL,$to = NULL){
+		$raw = ' ';
+		if($from!=NULL && $to!=NULL){ 
+			$raw = $raw . " created_at between '".$from." 00:00:00' AND '".$to." 23:59:59' ";
+		}else if($from!=NULL){ 
+			$raw = $raw . " created_at >= '".$from." 00:00:00'";
+		}else if($to!=NULL){ 
+			$raw = $raw . " created_at <= '".$to." 23:59:59'"; 
+		}
+		return $raw;
+	}
+
+	//Este método exibe apenas a view do relatório de receita
+	public function viewRelatorioReceita(){
+		$i = 0; 
+		return view('relatorios.receita',compact('i'));
+	} 
+
+	public function searchRelatorioReceita(Request $request){ 
+	}
+
+	//Este método exibe apenas a view do relatório de parcelas
+	public function viewRelatorioParcelas(){
+		$i = 0; 
+		$planos = Plano::all();
+		return view('relatorios.parcelas',compact('i','planos'));
+	} 
+
+	public function searchRelatorioParcelas(Request $request){ 
+	}
 }
