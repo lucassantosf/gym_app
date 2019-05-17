@@ -42,17 +42,31 @@
                     <div class="card-header">
                         Dados de faturamento< <a href="/relatorios/faturamento">Voltar</a>
                     </div>
-                    <div class="card-body">
-                        @if(isset($data))
-                            @foreach($data as $d)
-                                {{var_dump($d)}}
-                            @endforeach
+                    <div class="card-body"> 
+                        @if(isset($data)) 
+                            @if(isset($data[0]))
+                                @foreach($data[0] as $d)
+                                    @if(isset($clientes))
+                                        @foreach($clientes as $c)
+                                            @if($c->id == $d->cliente_id)
+                                            <h4>{{$c->name}}</h4>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                    <small class="form-text text-muted">
+                                        {{$d->plano_name}} - {{$d->duracao}} - {{$d->value_total}}
+                                    </small>     
+                                @endforeach
+                            @endif
+                            @if(isset($data[1])) 
+                                {{var_dump($data[1])}} 
+                            @endif
                         @endif
                         @if(isset($msg))
                             <div class="alert alert-danger">
                                 {{$msg}}
                             </div> 
-                        @endif     
+                        @endif    
                     </div>
                 @endif
             </div>

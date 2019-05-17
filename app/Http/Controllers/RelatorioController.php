@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Cliente;
 use App\Plano;
 use App\Modalidade;
 
@@ -227,7 +228,8 @@ class RelatorioController extends Controller
 				array_push($data , $this->consultar_vendas_avulsas(NULL,$to));  
 			} 
 		} 
-		return view('relatorios.faturamento',compact('i','data'));
+		$clientes = Cliente::all();
+		return view('relatorios.faturamento',compact('i','data','clientes'));
 	}
 
 	//Este método apenas consulta por um perido as vendas_planos - auxilia o método searchRelatorioFaturamento
