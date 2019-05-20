@@ -19,7 +19,7 @@
                     @if(isset($cliente_id)) 
                         <input type="hidden" class="form-control" id="nomesClientes" name="nomesClientes" value="{{$cliente_id}}">
                         <h2><a href="/clients/{{$cliente_id}}/show" class="badge badge-info" id="nomeCliente" name="nomeCliente">{{$cliente_name}}</a></h2> 
-                    @else   <br>
+                    @else   
                         <div class="input-group input-group-sm mb-12">
                             <div class="input-group-prepend">
                                     <span class="input-group-text" id="spanCliente">Escolha um cliente</span>
