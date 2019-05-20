@@ -3,19 +3,23 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                    @if(isset($cliente_id))
+        <div class="col-md-10">
+            <div class="card"> 
                     <div class="card-header">Realizar Venda</div>
-                    <div class="card-body">
-                    <form action="/vendas/viewPost" method="POST" id="formVenda">@csrf                        
+                    <div class="card-body"> 
+                        <form action="/vendas/viewPost" method="POST" id="formVenda">@csrf
+                        <div class="row">
+                            <div class="col-sm-3 col-md-3">
+                                <label for="dt_neg">Data Venda</label>
+                            </div>
+                            <div class="col-sm-3 col-md-3"> 
+                                <input class="form-control form-control-sm" type="text" class="datapicker" id="dt_neg" name="dt_neg">
+                            </div> 
+                        </div> 
+                    @if(isset($cliente_id)) 
                         <input type="hidden" class="form-control" id="nomesClientes" name="nomesClientes" value="{{$cliente_id}}">
-                        <h2><a href="/clients/{{$cliente_id}}/show" class="badge badge-info" id="nomeCliente" name="nomeCliente">{{$cliente_name}}</a></h2>  
-                        <br>
-                    @else
-                    <div class="card-header">Realizar Venda < <a href="/home">Voltar</a></div>
-                    <div class="card-body">
-                    <form action="/vendas/viewPost" method="POST" id="formVenda">@csrf
+                        <h2><a href="/clients/{{$cliente_id}}/show" class="badge badge-info" id="nomeCliente" name="nomeCliente">{{$cliente_name}}</a></h2> 
+                    @else   <br>
                         <div class="input-group input-group-sm mb-12">
                             <div class="input-group-prepend">
                                     <span class="input-group-text" id="spanCliente">Escolha um cliente</span>
@@ -24,8 +28,8 @@
                             <select class="form-control" id="nomesClientes" name="nomesClientes">    
                                     <!-- Incluir nomes pesquisados -->     
                             </select>
-                        </div><hr>
-                    @endif
+                        </div> <br>
+                    @endif   
                         <div class="input-group input-group-sm mb-12">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="spanProduto">Escolher produtos</span>
@@ -35,7 +39,7 @@
                                 <!-- Produtos incluidos ao ser pesquisado -->
                             </select>
                             <input type="button" id="add_prod" class="btn btn-primary btn-sm" value="+" disabled>
-                        </div><br>
+                        </div> 
                         <table class="table table-hover" id="produtos">                              
                             <!-- Produtos incluido dinamicamente -->  
                         </table>
@@ -66,9 +70,21 @@
 @endsection
 @section('javascript')
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
         
         $(document).ready(function() {   
+            
+            $('#dt_neg').datepicker({
+                dateFormat: 'dd/mm/yy',
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+            }); 
             let lastProductValue;
             let valueTotal;
             let memoryBeforeDesconto;

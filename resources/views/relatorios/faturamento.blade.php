@@ -45,28 +45,51 @@
                     <div class="card-body"> 
                         @if(isset($data)) 
                             @if(isset($data[0]))
+                                @php
+                                    $i = 0;
+                                @endphp 
                                 @foreach($data[0] as $d)
                                     @if(isset($clientes))
                                         @foreach($clientes as $c)
                                             @if($c->id == $d->cliente_id)
-                                            <h4>{{$c->name}}</h4>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="5">{{$c->name}}</th> 
+                                                    </tr>
+                                                </thead>  
                                             @endif
                                         @endforeach
-                                    @endif
-                                    <small class="form-text text-muted">
-                                        {{$d->plano_name}} - {{$d->duracao}} - {{$d->value_total}}
-                                    </small>     
+                                    @endif 
+                                        @php
+                                            $i += $d->value_total;
+                                        @endphp
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Matricula {{$c->id}}</td>
+                                                        <td>{{$d->plano_name}}</td>
+                                                        <td>{{$d->dt_neg}}</td>
+                                                        <td>Duração {{$d->duracao}}</td>
+                                                        <td>R${{$d->value_total}}</td>
+                                                    </tr>
+                                                </tbody> 
+                                            </table>
                                 @endforeach
                             @endif
                             @if(isset($data[1])) 
                                 {{var_dump($data[1])}} 
                             @endif
-                        @endif
+                        @endif 
+                    </div>
+                    <div class="card-footer">
+                        @php
+                            echo 'Valor total R$ '.$i;
+                        @endphp
                         @if(isset($msg))
                             <div class="alert alert-danger">
                                 {{$msg}}
                             </div> 
-                        @endif    
+                        @endif 
                     </div>
                 @endif
             </div>
