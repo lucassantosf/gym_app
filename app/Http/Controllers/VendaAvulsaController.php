@@ -11,8 +11,7 @@ use App\Cliente;
 use App\Produto;
 use App\Recibo;
 
-class VendaAvulsaController extends Controller
-{
+class VendaAvulsaController extends Controller{
     //Este método trata o post da Venda Avulsa
     public function postVendaAvulsa(Request $request){
     	//Salvar a venda avulsa	    
@@ -21,6 +20,8 @@ class VendaAvulsaController extends Controller
     	$venda_avulsa = new VendaAvulsa();
     	$venda_avulsa->desconto = $request->input("desconto");
     	$venda_avulsa->value = $request->input("vlTotal");
+        $dt_neg = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dt_neg'))))));
+        $venda_avulsa->dt_neg = $dt_neg;
     	$venda_avulsa->cliente_id = $cliente->id;
     	$venda_avulsa->save();
     	//Dentro da venda avulsa salvar cada item da compra
@@ -133,5 +134,4 @@ class VendaAvulsaController extends Controller
             return $data;
         }     
     }
-
 }

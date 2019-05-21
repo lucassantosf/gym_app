@@ -43,16 +43,16 @@
                         Dados de faturamento< <a href="/relatorios/faturamento">Voltar</a>
                     </div>
                     <div class="card-body"> 
-                        @if(isset($data)) 
-                            @if(isset($data[0]))
-                                @php
-                                    $i = 0;
-                                @endphp 
+                        @php
+                            $Tot = 0;
+                        @endphp
+                        @if(isset($data))  
+                            @if(isset($data[0])) 
                                 @foreach($data[0] as $d)
                                     @if(isset($clientes))
                                         @foreach($clientes as $c)
                                             @if($c->id == $d->cliente_id)
-                                            <table class="table">
+                                            <table class="table table-sm table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th colspan="5">{{$c->name}}</th> 
@@ -62,9 +62,9 @@
                                         @endforeach
                                     @endif 
                                         @php
-                                            $i += $d->value_total;
+                                            $Tot += $d->value_total;
                                         @endphp
-                                                <tbody>
+                                                <tbody style="font-size: 14px">
                                                     <tr>
                                                         <td>Matricula {{$c->id}}</td>
                                                         <td>{{$d->plano_name}}</td>
@@ -76,20 +76,54 @@
                                             </table>
                                 @endforeach
                             @endif
-                            @if(isset($data[1])) 
-                                {{var_dump($data[1])}} 
+                            @if(isset($data[1]))  
+                                @foreach($data[1] as $da)
+                                    @if(isset($clientes))
+                                        @foreach($clientes as $c)
+                                            @if($c->id == $da->cliente_id)
+                                            <table class="table table-sm table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="5">{{$c->name}}</th> 
+                                                    </tr>
+                                                </thead>  
+                                            @endif
+                                        @endforeach 
+                                    @endif
+                                        @php
+                                            $Tot += $da->value;
+                                        @endphp
+                                                <tbody  style="font-size: 14px">
+                                                    <tr>
+                                                        <td>Venda Nº{{$da->id}}</td>
+                                                        <td style="text-align: right;">{{$da->dt_neg}}</td>
+                                                        <td style="text-align: right;">R${{$da->value}}</td>
+                                                    </tr>
+                                                    @if(isset($data[2]))
+                                                        @for($i=2 ; $i < count($data) ;$i++)
+                                                            @if($data[$i]->venda_avulsa_id == $da->id)
+                                                            <tr>
+                                                                <td>Cód Produto {{$data[$i]->produto_id}}</td>
+                                                                <td style="text-align: right" colspan="2">{{$data[$i]->descricao_produto}}</td> 
+                                                            </tr> 
+                                                            @endif
+                                                        @endfor
+                                                    @endif
+                                                </tbody> 
+                                            </table>
+                                @endforeach 
                             @endif
-                        @endif 
-                    </div>
-                    <div class="card-footer">
-                        @php
-                            echo 'Valor total R$ '.$i;
-                        @endphp
+                        @endif
                         @if(isset($msg))
                             <div class="alert alert-danger">
                                 {{$msg}}
                             </div> 
                         @endif 
+                    </div>
+                    <div class="card-footer"> 
+                        @php
+                            echo 'Valor total R$ '.$Tot;
+                        @endphp
                     </div>
                 @endif
             </div>

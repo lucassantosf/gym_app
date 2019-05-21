@@ -220,6 +220,7 @@ class RelatorioController extends Controller
 				array_push($data , $this->consultar_vendas_planos(NULL,$to));   
 			}  
 		}else if($checkVenda){  
+			array_push($data, NULL);
 			if($dateStart && $dateEnd){   
 				array_push($data , $this->consultar_vendas_avulsas($from,$to)); 
 			}else if($dateStart){   
@@ -229,6 +230,20 @@ class RelatorioController extends Controller
 			} 
 		} 
 		$clientes = Cliente::all();
+		//Se tiver indice 1 em $data pesquisar os itens de vendas_avulsas e adicionar neste array
+		if(isset($data[1])){
+			foreach ($data[1] as $obj) {
+				$query = DB::table('item_venda_avulsas')->where([ 
+		            ['venda_avulsa_id',$obj->id],
+		            ['deleted_at',NULL],
+		        ])->get();
+		        if (isset($query)) {
+		            foreach ($query as $q) {
+						array_push($data , $q); 
+			        }
+		    	}
+			}
+		}
 		return view('relatorios.faturamento',compact('i','data','clientes'));
 	}
 
@@ -240,19 +255,19 @@ class RelatorioController extends Controller
 
 	//Este método apenas consulta por um perido as vendas_avulsas - auxilia o método searchRelatorioFaturamento
 	private function consultar_vendas_avulsas($from = NULL,$to = NULL){  
-		$consulta = DB::select(DB::raw("SELECT * FROM academia.venda_avulsas WHERE ".$this->getRaw($from,$to)));
+		$consulta = DB::select(DB::raw("SELECT * FROM academia.venda_avulsas WHERE ".$this->getRaw($from,$to))); 
 		return $consulta;
 	}
 
 	//Este método auxiliad a criar string da query para os métodos consultar_vendas_avulsas e consultar_vendas_planos
 	private function getRaw($from = NULL,$to = NULL){
 		$raw = ' ';
-		if($from!=NULL && $to!=NULL){ 
-			$raw = $raw . " created_at between '".$from." 00:00:00' AND '".$to." 23:59:59' ";
+		if($from!=NULL && $to!=NULL){  
+			$raw = $raw . " dt_neg between '".$from." 00:00:00' AND '".$to." 23:59:59' ";
 		}else if($from!=NULL){ 
-			$raw = $raw . " created_at >= '".$from." 00:00:00'";
+			$raw = $raw . " dt_neg >= '".$from." 00:00:00'";
 		}else if($to!=NULL){ 
-			$raw = $raw . " created_at <= '".$to." 23:59:59'"; 
+			$raw = $raw . " dt_neg <= '".$to." 23:59:59'"; 
 		}
 		return $raw;
 	}
@@ -276,3 +291,14 @@ class RelatorioController extends Controller
 	public function searchRelatorioParcelas(Request $request){ 
 	}
 }
+
+/*
+
+		foreach ($consulta as $obj) { 
+			$query = DB::table('item_venda_avulsas')->where([ 
+	            ['vendas_avulsa_id',1],
+	            ['deleted_at',NULL],
+	        ])->get();  
+		}
+
+*/

@@ -56,13 +56,11 @@
                             </div>
                             <input type="text" class="form-control" id="vlTotal" name="vlTotal">
                         </div>
-                </div>
-
+                </div> 
                 <div class="card-footer">
                     <button class="btn btn-primary btn-sm" type="submit" @if(isset($cliente_id)) onclick="validarCamposOnSubmit(true)" @else onclick="validarCamposOnSubmit(false)" @endif >Confirmar Venda</button>     
                     </form>
-                </div>
-                 
+                </div> 
             </div>
         </div>
     </div>

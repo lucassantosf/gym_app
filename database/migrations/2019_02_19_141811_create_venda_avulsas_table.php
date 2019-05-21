@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateVendaAvulsasTable extends Migration
 {
-    /**
+    /** 
      * Run the migrations.
      *
      * @return void
@@ -17,6 +17,7 @@ class CreateVendaAvulsasTable extends Migration
             $table->increments('id');
             $table->float('desconto')->nullable();
             $table->float('value');
+            $table->date('dt_neg');
             $table->integer('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->softDeletes();
