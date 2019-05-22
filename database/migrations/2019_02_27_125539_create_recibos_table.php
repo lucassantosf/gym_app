@@ -17,6 +17,7 @@ class CreateRecibosTable extends Migration
             $table->increments('id');
             $table->string('formaPagamento');
             $table->float('valorRecibo');
+            $table->date('dt_neg');
             $table->integer('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->integer('venda_id')->unsigned()->nullable();

@@ -20,6 +20,7 @@ class CreateParcelasTable extends Migration
             $table->integer('venda_avulsa_id')->unsigned()->nullable();
             $table->foreign('venda_avulsa_id')->references('id')->on('venda_avulsas');
             $table->float('value');
+            $table->date('dt_vencimento');
             $table->string('nome_cliente')->nullable();
             $table->integer('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes');

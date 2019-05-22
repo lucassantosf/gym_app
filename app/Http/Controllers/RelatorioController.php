@@ -279,6 +279,68 @@ class RelatorioController extends Controller
 	} 
 
 	public function searchRelatorioReceita(Request $request){ 
+		$i = 1;
+		$raw = '';
+		$data = [];
+		$hasF = false;
+		$dateStart = $request->input('dateStart');
+		$dateEnd = $request->input('dateEnd');
+		$checkDin = $request->input('checkDin');
+		$checkCC = $request->input('checkCC');
+		$checkCD = $request->input('checkCD');
+		$checkCh = $request->input('checkCh');
+		$checkT = $request->input('checkT');
+		//Validar se datas estão vazias
+		if(!$dateStart && !$dateEnd){ 
+			$msg = 'Informar pelo menos uma data para consulta!';
+			return view('relatorios.receita',compact('i','msg'));
+		}
+		$from = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dateStart'))))));
+		$to = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dateEnd'))))));  
+		//Validar forma de pagamento selecionada e formar string de consulta auxiliar
+		if($checkDin){
+			$hasF = true;
+			$raw = $raw. " formaPagamento like 'dinheiro' OR ";
+		}
+		if($checkCC){
+			$hasF = true;
+			$raw = $raw. " formaPagamento like 'cartaoc' OR ";
+		}
+		if($checkCD){
+			$hasF = true;
+			$raw = $raw. " formaPagamento like 'cartaod' OR ";
+		}
+		if($checkCh){
+			$hasF = true;
+			$raw = $raw. " formaPagamento like 'cheque' OR ";
+		}
+		if($checkT){
+			$hasF = true;
+			$raw = $raw. " formaPagamento like 'transferencia' OR";
+		}
+		//De acordo à data da consulta, informar ao método que faz a consulta
+		if($dateStart && $dateEnd){  
+			array_push($data , $this->consultar_recibos($from,$to,$raw,$hasF));  
+		}else if($dateStart){
+			array_push($data , $this->consultar_recibos($from,NULL,$raw,$hasF));   
+		}else if($dateEnd){
+			array_push($data , $this->consultar_recibos(NULL,$to,$raw,$hasF));    
+		} 
+		var_dump($data);
+		exit();
+	}
+
+	//Este método auxilia a criação da query para consultar recibos
+	private function consultar_recibos($from = NULL,$to = NULL,$raw,$hasF){
+		if($hasF) {
+			$raw2 = ' AND '.$raw;
+		}else{
+			$raw2 = $raw;
+		}
+		//$consulta = DB::select(DB::raw("SELECT * FROM academia.recibos WHERE ".$this->getRaw($from,$to).$raw2));
+		echo "SELECT * FROM academia.recibos WHERE ".$this->getRaw($from,$to).$raw2;
+		exit();
+		return $consulta;
 	}
 
 	//Este método exibe apenas a view do relatório de parcelas

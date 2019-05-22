@@ -258,8 +258,7 @@ class PlanoController extends Controller
     }
 
     //Este método trata os dados para a tela de conferir o plano na negociação
-    public function postConferirNeg(Request $request){  
-
+    public function postConferirNeg(Request $request){
         $plano_id = $request->input('selectPlan');
         $cliente_id = $request->input('id_cliente');
         $modals = $request->input('modals');
@@ -304,20 +303,20 @@ class PlanoController extends Controller
         $venda->duracao = $duracao;
         $venda->save(); 
         //salvar cada parcela no banco
-        $cliente = Cliente::find($venda->cliente_id);//procurar o nome do cliente para salvar na parcela
+        $cliente = Cliente::find($venda->cliente_id);//procurar o nome do cliente para salvar na parcela         
         for($i=0 ; $i<$condicao; $i++){
             $parcela = new Parcela();
             $parcela->venda_id = $venda->id;
             $parcela->nome_cliente = $cliente->name;
             $parcela->cliente_id = $venda->cliente_id;
+            $parcela->dt_vencimento = date('Y-m-d', strtotime("+".$i."months",strtotime($venda->dt_neg)));
             $parcela->value = $valor_mensal;
             $parcela->save(); 
-        }
+        } 
         //Se houver itens_turmas selecionados indica que a negociação tem modalidade com turma, logo incluir nestes horários
         $itens = $request->input('itens');  
         if (isset($itens)) {
-            foreach ($itens as $i) {
-                
+            foreach ($itens as $i) { 
                 //Registrar o aluno na turma
                 DB::table('alunos_em_turmas')->insert([
                     'item_turma_id'=>$i,

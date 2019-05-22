@@ -9,7 +9,7 @@
                         <h5>Receita por Período</h5> 
                     </div>
                     <div class="card-body"> 
-                        <form action="/relatorios/faturamento/search" method="GET">
+                        <form action="/relatorios/receita/search" method="GET">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-4 col-md-4">Selecione o período</div>
@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="col-sm-5 col-md-4">
                                     <label for="checkbox">Dinheiro</label>
-                                    <input type="checkbox" id="checkPlan" name="checkPlan">
+                                    <input type="checkbox" id="checkDin" name="checkDin" value="1">
                                 </div> 
                             </div> 
                             <div class="row" style="text-align: right;">
@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="col-sm-5 col-md-4">
                                     <label for="checkbox">Cartão de Crédito</label>
-                                    <input type="checkbox" id="checkVenda" name="checkVenda">
+                                    <input type="checkbox" id="checkCC" name="checkCC" value="1">
                                 </div> 
                             </div>
                             <div class="row" style="text-align: right;">
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-sm-5 col-md-4">
                                     <label for="checkbox">Cartão de Débito</label>
-                                    <input type="checkbox" id="checkVenda" name="checkVenda">
+                                    <input type="checkbox" id="checkCD" name="checkCD" value="1">
                                 </div> 
                             </div>
                             <div class="row" style="text-align: right;">
@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="col-sm-5 col-md-4">
                                     <label for="checkbox">Cheque</label>
-                                    <input type="checkbox" id="checkVenda" name="checkVenda">
+                                    <input type="checkbox" id="checkCh" name="checkCh" value="1">
                                 </div> 
                             </div>
                             <div class="row" style="text-align: right;">
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="col-sm-5 col-md-4">
                                     <label for="checkbox">Transferência</label>
-                                    <input type="checkbox" id="checkVenda" name="checkVenda">
+                                    <input type="checkbox" id="checkT" name="checkT" value="1">
                                 </div> 
                             </div>   
                     </div>
@@ -64,9 +64,12 @@
                     </div>
                 @else
                     <div class="card-header">
-                        Dados de faturamento < <a href="/relatorios/clients">Voltar</a>
+                        Dados de receita < <a href="/relatorios/receita">Voltar</a>
                     </div>
-                    <div class="card-body"> 
+                    <div class="card-body">
+                        @if(isset($msg))
+                            <div class="alert alert-danger">{{$msg}}</div>
+                        @endif
                     </div>
                 @endif
             </div>

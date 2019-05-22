@@ -9,15 +9,16 @@ use App\Cliente;
 use App\Recibo;
 use App\ItemRecibo;
 
-class ParcelaController extends Controller
-{
+class ParcelaController extends Controller{
+    //
     public function showParcelasVenda($id){
         $parcelas = DB::table('parcelas')->where('venda_id',$id)->get();
         return json_encode($parcelas);
     }
 
     //Este método retorna apenas a view do Caixa em aberto
-    public function mostrarParcelas(){         
+    public function mostrarParcelas(){   
+
     	return view('operacao.emAbertoPrincipal');
     }
 
@@ -87,6 +88,7 @@ class ParcelaController extends Controller
         $recibo = new Recibo();
         $recibo->cliente_id = $parcela->cliente_id;
         $recibo->formaPagamento = 'dinheiro';
+        $recibo->dt_neg = date('Y-m-d');
         $recibo->valorRecibo = $parcela->value; 
         //Aqui diferencia se a parcela paga é VA ou plano       
         if(!$isVA) {
@@ -126,7 +128,7 @@ class ParcelaController extends Controller
         $recibo->cliente_id = $request->input("cliente_id");
         $recibo->formaPagamento = $request->input("formaPagamento");
         $recibo->valorRecibo = $request->input("valorTotal");
-        
+        $recibo->dt_neg = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('date'))))));; 
         //com o recibo salvo trabalhar em cada parcela para gerar os itens do recibo
         $parcelas = $request->input("parcela");  
         foreach($parcelas as $p){

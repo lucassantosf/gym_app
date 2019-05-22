@@ -10,7 +10,7 @@
                     </div>
                     <div class="card-body"> 
                         <form action="/relatorios/faturamento/search" method="GET">
-                            @csrf
+                            @csrf 
                             <div class="row">
                                 <div class="col-sm-4 col-md-3">Selecione o período</div>
                                 <div class="col-sm-3 col-md-3"><input type="text" id="dateStart" name="dateStart" class="form-control form-control-sm"></div>
