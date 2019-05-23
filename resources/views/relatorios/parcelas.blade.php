@@ -9,7 +9,7 @@
                         <h5>Parcelas por Período</h5> 
                     </div>
                     <div class="card-body"> 
-                        <form action="/relatorios/faturamento/search" method="GET">
+                        <form action="/relatorios/parcelas/search" method="GET">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-4 col-md-4">Selecione o período</div>
@@ -21,11 +21,10 @@
                                 <div class="col-sm-9 col-md-8">Pesquisar Por Data: 
                                 </div>
                                 <div class="col-sm-3 col-md-3"  style="text-align: left;">
-                                    <select class="form-control form-control-sm">
-                                        <option></option>
-                                        <option>de Vencimento</option>
-                                        <option>de Pagamento</option>
-                                        <option>de Faturamento</option>
+                                    <select class="form-control form-control-sm" name="filterDate">
+                                        <option value="1">de Vencimento</option>
+                                        <option value="2">de Pagamento</option>
+                                        <option value="3">de Faturamento</option>
                                     </select>
                                 </div> 
                             </div> 
@@ -33,17 +32,17 @@
                                 <div class="col-sm-9 col-md-8">Situação: 
                                 </div>
                                 <div class="col-sm-3 col-md-3"  style="text-align: left;">
-                                    <select class="form-control form-control-sm">
+                                    <select class="form-control form-control-sm" name="filterSit">
                                         <option></option>
-                                        <option>Pago</option>
-                                        <option>em Aberto</option> 
+                                        <option value="1">Pago</option>
+                                        <option value="2">em Aberto</option> 
                                     </select>
                                 </div> 
                             </div> 
-                                <div class="row" style="text-align: right; padding-top: 20px">
+                            <div class="row" style="text-align: right; padding-top: 20px">
                                 <div class="col-sm-9 col-md-8">Plano:</div>
                                 <div class="col-sm-3 col-md-3"  style="text-align: left;">
-                                    <select class="form-control form-control-sm">
+                                    <select class="form-control form-control-sm" name="filterPlan">
                                         <option></option>
                                         @if(isset($planos))
                                             @foreach($planos as $p)
@@ -60,10 +59,12 @@
                     </div>
                 @else
                     <div class="card-header">
-                        Dados de faturamento < <a href="/relatorios/clients">Voltar</a>
+                        Dados de parcelas < <a href="/relatorios/parcelas">Voltar</a>
                     </div>
                     <div class="card-body">
-                         
+                        @if(isset($msg))
+                            <div class="alert alert-danger">{{$msg}}</div>
+                        @endif
                     </div>
                 @endif
             </div>

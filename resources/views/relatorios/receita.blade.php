@@ -69,6 +69,103 @@
                     <div class="card-body">
                         @if(isset($msg))
                             <div class="alert alert-danger">{{$msg}}</div>
+                        @else
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <!-- Contabilizar forma de pagamento-->
+                                    @php
+                                        $tot = 0;
+                                        $totDin = 0;
+                                        $totCC = 0;
+                                        $totCD = 0;
+                                        $totCh = 0;
+                                        $totTr = 0;
+                                        if(isset($data)){
+                                            foreach($data[0] as $d){
+                                                $tot += $d->valorRecibo;
+                                                if($d->formaPagamento == 'dinheiro'){
+                                                    $totDin += $d->valorRecibo;
+                                                }
+                                                if($d->formaPagamento == 'transferencia'){
+                                                    $totTr += $d->valorRecibo;
+                                                }
+                                                if($d->formaPagamento == 'cartaoc'){
+                                                    $totCC += $d->valorRecibo;
+                                                }
+                                                if($d->formaPagamento == 'cartaod'){
+                                                    $totCD += $d->valorRecibo;
+                                                }
+                                                if($d->formaPagamento == 'cheque'){
+                                                    $totCh += $d->valorRecibo;
+                                                }
+                                            }
+                                        }                                                 
+                                    @endphp
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr><th colspan="2" style="text-align: center;">Totalizador por Forma Pagamento</th></tr>
+                                            <tr>
+                                                <th>Dinheiro</th>
+                                                <th>R${{$totDin}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Cartão Crédito</th>
+                                                <th>R${{$totCC}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Cartão Débito</th>
+                                                <th>R${{$totCD}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Cheque</th>
+                                                <th>R${{$totCh}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Transferencia</th>
+                                                <th>R${{$totTr}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="text-align: right">Total</th>
+                                                <th>R${{$tot}}</th>
+                                            </tr>
+                                        </tbody> 
+                                    </table> 
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <table class="table table-hover">
+                                        <tbody> 
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Forma de Pagamento</th>
+                                                    <th>Valor</th>
+                                                    <th>Data de Negociação</th>
+                                                    <th>Responsável</th>
+                                                </tr>
+                                            </thead> 
+                                            @if(isset($data))
+                                                @foreach($data[0] as $d)
+                                                    <tr>
+                                                        <td>{{$d->id}}</td>
+                                                        <td>{{$d->formaPagamento}}</td> 
+                                                        <td>R${{$d->valorRecibo}}</td>
+                                                        <td>{{$d->dt_neg}}</td>
+                                                        @if(isset($clientes))
+                                                            @foreach($clientes as $c)
+                                                                @if($c->id == $d->cliente_id)
+                                                                    <td>{{$c->name}}</td>
+                                                                @endif 
+                                                            @endforeach
+                                                        @endif
+                                                    </tr> 
+                                                @endforeach
+                                            @endif 
+                                        </tbody> 
+                                    </table>
+                                </div>
+                            </div>
                         @endif
                     </div>
                 @endif

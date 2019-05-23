@@ -259,7 +259,7 @@ class RelatorioController extends Controller
 		return $consulta;
 	}
 
-	//Este método auxiliad a criar string da query para os métodos consultar_vendas_avulsas e consultar_vendas_planos
+	//Este método auxilia criar string da query para os métodos consultar_vendas_avulsas e consultar_vendas_planos, searchRelatorioReceita, 
 	private function getRaw($from = NULL,$to = NULL){
 		$raw = ' ';
 		if($from!=NULL && $to!=NULL){  
@@ -278,11 +278,11 @@ class RelatorioController extends Controller
 		return view('relatorios.receita',compact('i'));
 	} 
 
+	//Este método faz o tratamento do request do form Receita
 	public function searchRelatorioReceita(Request $request){ 
 		$i = 1;
-		$raw = '';
+		$raw = [];
 		$data = [];
-		$hasF = false;
 		$dateStart = $request->input('dateStart');
 		$dateEnd = $request->input('dateEnd');
 		$checkDin = $request->input('checkDin');
@@ -297,49 +297,47 @@ class RelatorioController extends Controller
 		}
 		$from = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dateStart'))))));
 		$to = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dateEnd'))))));  
-		//Validar forma de pagamento selecionada e formar string de consulta auxiliar
-		if($checkDin){
-			$hasF = true;
-			$raw = $raw. " formaPagamento like 'dinheiro' OR ";
+		//Validar forma de pagamento selecionada e adicionar string em array para enviar ao método
+		if($checkDin){ 
+			array_push($raw, " formaPagamento like 'dinheiro' "); 
 		}
-		if($checkCC){
-			$hasF = true;
-			$raw = $raw. " formaPagamento like 'cartaoc' OR ";
+		if($checkCC){ 
+			array_push($raw, " formaPagamento like 'cartaoc' ");  
 		}
 		if($checkCD){
-			$hasF = true;
-			$raw = $raw. " formaPagamento like 'cartaod' OR ";
+			array_push($raw, " formaPagamento like 'cartaod' ");  
 		}
 		if($checkCh){
-			$hasF = true;
-			$raw = $raw. " formaPagamento like 'cheque' OR ";
+			array_push($raw, " formaPagamento like 'cheque' ");  
 		}
 		if($checkT){
-			$hasF = true;
-			$raw = $raw. " formaPagamento like 'transferencia' OR";
+			array_push($raw, " formaPagamento like 'transferencia' "); 
 		}
 		//De acordo à data da consulta, informar ao método que faz a consulta
 		if($dateStart && $dateEnd){  
-			array_push($data , $this->consultar_recibos($from,$to,$raw,$hasF));  
+			array_push($data , $this->consultar_recibos($from,$to,$raw));  
 		}else if($dateStart){
-			array_push($data , $this->consultar_recibos($from,NULL,$raw,$hasF));   
+			array_push($data , $this->consultar_recibos($from,NULL,$raw));   
 		}else if($dateEnd){
-			array_push($data , $this->consultar_recibos(NULL,$to,$raw,$hasF));    
+			array_push($data , $this->consultar_recibos(NULL,$to,$raw));    
 		} 
-		var_dump($data);
-		exit();
+		$clientes = Cliente::all();
+		return view('relatorios.receita',compact('i','data','clientes'));
 	}
 
-	//Este método auxilia a criação da query para consultar recibos
-	private function consultar_recibos($from = NULL,$to = NULL,$raw,$hasF){
-		if($hasF) {
-			$raw2 = ' AND '.$raw;
-		}else{
-			$raw2 = $raw;
+	//Este método auxilia a criação da query para consultar recibos, e faz a consulta retornando os dados
+	private function consultar_recibos($from = NULL,$to = NULL,$raw){
+		$query = '';
+		if(count($raw) != 0){
+			$query = ' AND ';
 		}
-		//$consulta = DB::select(DB::raw("SELECT * FROM academia.recibos WHERE ".$this->getRaw($from,$to).$raw2));
-		echo "SELECT * FROM academia.recibos WHERE ".$this->getRaw($from,$to).$raw2;
-		exit();
+		for($x=0; $x<count($raw); $x++) {
+			$query = $query . $raw[$x];
+			if($x != (count($raw) - 1) ){  
+				$query = $query . ' OR ';
+			}
+		}
+		$consulta = DB::select(DB::raw("SELECT * FROM academia.recibos WHERE ".$this->getRaw($from,$to).$query)); 
 		return $consulta;
 	}
 
@@ -350,17 +348,68 @@ class RelatorioController extends Controller
 		return view('relatorios.parcelas',compact('i','planos'));
 	} 
 
+	//Este método
 	public function searchRelatorioParcelas(Request $request){ 
+		$i = 1;
+		$rawD = [];
+		$rawP = [];
+		//Inicializar elementos
+		$dateStart = $request->input('dateStart');
+		$dateEnd = $request->input('dateEnd');
+		$filterDate = $request->input('filterDate');
+		$filterSit = $request->input('filterSit');
+		//$filterPlan = $request->input('filterPlan');
+		$from = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dateStart'))))));
+		$to = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dateEnd'))))));  
+		
+		//Se validou existencia de datas ....
+		if($filterDate == 1) { array_push($rawD, 'dt_vencimento');}
+		else if($filterDate == 2) { array_push($rawD, 'dt_pagamento');}
+		else if($filterDate == 3) { array_push($rawD, 'dt_fat');}
+		if($filterSit == 1) { array_push($rawP, " status like 'Pago' ");}
+		else if($filterSit == 2) { array_push($rawP, " status like 'Em aberto' ");}
+ 		
+ 		//Validar se datas estão vazias
+		if(!$dateStart && !$dateEnd){ 
+			$msg = 'Informar pelo menos uma data para consulta!';
+			return view('relatorios.parcelas',compact('i','msg'));
+		}
+		if($dateStart && $dateEnd){
+			$data = $this->consultar_parcelas($from,$to,$rawD,$rawP);
+		}else if($dateStart){
+			$data = $this->consultar_parcelas($from,NULL,$rawD,$rawP); 
+		}else{ 
+			$data = $this->consultar_parcelas(NULL,$to,$rawD,$rawP); 
+		} 
+	}
+
+	//Este método auxilia a criação da query para consultar parcelas, e faz a consulta retornando os dados
+	private function consultar_parcelas($from = NULL,$to = NULL,$rawD,$rawP){
+		$query = '';
+		if(count($rawP) != 0){
+			$query = ' AND ';
+		}
+		for($x=0; $x<count($rawP); $x++) {
+			$query = $query . $rawP[$x];
+			if($x != (count($rawP) - 1) ){  
+				$query = $query . ' OR ';
+			}
+		}
+		echo "SELECT * FROM academia.parcelas WHERE ".$this->getRawParcela($from,$to,$rawD).$query;
+		exit();
+		//$consulta = DB::select(DB::raw("SELECT * FROM academia.parcelas WHERE ".$this->getRaw($from,$to,$rawD).$query));
+		return $consulta;
+	}
+
+	private function getRawParcela($from = NULL,$to = NULL,$rawD){
+		$raw = $rawD[0];
+		if($from!=NULL && $to!=NULL){  
+			$raw = $raw . " between '".$from." 00:00:00' AND '".$to." 23:59:59' ";
+		}else if($from!=NULL){ 
+			$raw = $raw . "  >= '".$from." 00:00:00'";
+		}else if($to!=NULL){ 
+			$raw = $raw . "  <= '".$to." 23:59:59'"; 
+		}
+		return $raw;
 	}
 }
-
-/*
-
-		foreach ($consulta as $obj) { 
-			$query = DB::table('item_venda_avulsas')->where([ 
-	            ['vendas_avulsa_id',1],
-	            ['deleted_at',NULL],
-	        ])->get();  
-		}
-
-*/

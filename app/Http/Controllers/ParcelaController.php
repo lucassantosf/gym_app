@@ -60,7 +60,7 @@ class ParcelaController extends Controller{
                 //Buscar a parcela e tornar Em aberto
                 DB::table('parcelas')
                     ->where('id', $i->parcela_id)
-                    ->update(['status' => 'Em aberto']);
+                    ->update(['status' => 'Em aberto','dt_pagamento'=>NULL]);
                 //Deletar o item
                 $item = ItemRecibo::find($i->id);
                 if (isset($item)) {
@@ -82,6 +82,7 @@ class ParcelaController extends Controller{
     	$parcela = Parcela::find($id);
     	if (isset($parcela)) {
     		$parcela->status = 'Pago';
+            $parcela->dt_pagamento = date('Y-m-d');
     		$parcela->save();            
     	}
         //Gerar o recibo - obs:venda_id->table recibo é null
@@ -134,7 +135,7 @@ class ParcelaController extends Controller{
         foreach($parcelas as $p){
             DB::table('parcelas')
                 ->where('id', $p)
-                ->update(['status' => 'Pago']);
+                ->update(['status' => 'Pago','dt_pagamento'=>date('Y-m-d',strtotime($recibo->dt_neg))]);
             $parcela = Parcela::find($p);
             $recibo->venda_id = $parcela->venda_id;
             $recibo->venda_avulsa_id = $parcela->venda_avulsa_id;

@@ -310,6 +310,7 @@ class PlanoController extends Controller
             $parcela->nome_cliente = $cliente->name;
             $parcela->cliente_id = $venda->cliente_id;
             $parcela->dt_vencimento = date('Y-m-d', strtotime("+".$i."months",strtotime($venda->dt_neg)));
+            $parcela->dt_fat = date('Y-m-d', strtotime($venda->dt_neg));
             $parcela->value = $valor_mensal;
             $parcela->save(); 
         } 
