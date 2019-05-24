@@ -103,8 +103,7 @@
         let toggleDesconto = true;
         let toggleCond = true;
         let desconto_valor = 0;
-        let now = new Date();
-
+        let now = new Date(); 
         $(document).ready(function() {    
             
             $('#dataNeg,#dataStart').val(getDate());

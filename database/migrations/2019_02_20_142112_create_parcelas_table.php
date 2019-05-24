@@ -17,6 +17,8 @@ class CreateParcelasTable extends Migration
             $table->increments('id');
             $table->integer('venda_id')->unsigned()->nullable();
             $table->foreign('venda_id')->references('id')->on('vendas');
+            $table->integer('plan_id')->unsigned()->nullable();
+            $table->foreign('plan_id')->references('id')->on('planos');
             $table->integer('venda_avulsa_id')->unsigned()->nullable();
             $table->foreign('venda_avulsa_id')->references('id')->on('venda_avulsas');
             $table->float('value');

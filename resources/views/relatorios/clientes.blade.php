@@ -170,10 +170,29 @@
                     <div class="card-header">
                         Filtrar Clientes < <a href="/relatorios/clients">Voltar</a>
                     </div>
-                    <div class="card-body">
-                        @foreach($consulta as $obj)
-                            {{$obj->name}}<br>
-                        @endforeach
+                    <div class="card-body"> 
+                            <table class="table table-sm table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Fone</th>
+                                        <th>Email</th>
+                                        <th>Sexo</th>
+                                        <th>Situação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($consulta as $obj)
+                                    <tr>
+                                        <td>{{$obj->name}}</td>
+                                        <td>{{$obj->phone}}</td>
+                                        <td>{{$obj->email}}</td>
+                                        <td>{{$obj->sexo}}</td>
+                                        <td>{{$obj->situaçao}}</td>
+                                    </tr> 
+                                @endforeach
+                                </tbody>
+                            </table> 
                     </div>
                 @endif
             </div>

@@ -8,8 +8,7 @@ use App\Cliente;
 use App\Plano;
 use App\Modalidade;
 
-class RelatorioController extends Controller
-{
+class RelatorioController extends Controller{
 	//Este método exibe apenas a view do relatório de clientes
 	public function viewRelatorioClientes(){
 		$i = 0;
@@ -172,7 +171,7 @@ class RelatorioController extends Controller
 		} 
 		//ao final
 		$raw = $raw . ' c.id > 0';   
-		$consulta = DB::select(DB::raw("SELECT * FROM ".$raw3.$raw5." academia.clientes as c".$raw.$raw2.$raw4));  
+		$consulta = DB::select(DB::raw("SELECT * FROM ".$raw3.$raw5." academia.clientes as c".$raw.$raw2.$raw4.' AND c.deleted_at is null'));  
 		//echo "SELECT * FROM ".$raw3.$raw5." academia.clientes as c".$raw.$raw2.$raw4.'<br>';
 		//exit();
 		return view('relatorios.clientes',compact('i','consulta'));
@@ -249,13 +248,13 @@ class RelatorioController extends Controller
 
 	//Este método apenas consulta por um perido as vendas_planos - auxilia o método searchRelatorioFaturamento
 	private function consultar_vendas_planos($from = NULL,$to = NULL){  
-		$consulta = DB::select(DB::raw("SELECT * FROM academia.vendas WHERE ".$this->getRaw($from,$to)));
+		$consulta = DB::select(DB::raw("SELECT * FROM academia.vendas WHERE ".$this->getRaw($from,$to).' AND deleted_at is null'));
 		return $consulta;
 	}
 
 	//Este método apenas consulta por um perido as vendas_avulsas - auxilia o método searchRelatorioFaturamento
 	private function consultar_vendas_avulsas($from = NULL,$to = NULL){  
-		$consulta = DB::select(DB::raw("SELECT * FROM academia.venda_avulsas WHERE ".$this->getRaw($from,$to))); 
+		$consulta = DB::select(DB::raw("SELECT * FROM academia.venda_avulsas WHERE ".$this->getRaw($from,$to).' AND deleted_at is null')); 
 		return $consulta;
 	}
 
@@ -337,7 +336,7 @@ class RelatorioController extends Controller
 				$query = $query . ' OR ';
 			}
 		}
-		$consulta = DB::select(DB::raw("SELECT * FROM academia.recibos WHERE ".$this->getRaw($from,$to).$query)); 
+		$consulta = DB::select(DB::raw("SELECT * FROM academia.recibos WHERE ".$this->getRaw($from,$to).$query." AND deleted_at is null")); 
 		return $consulta;
 	}
 
@@ -348,7 +347,7 @@ class RelatorioController extends Controller
 		return view('relatorios.parcelas',compact('i','planos'));
 	} 
 
-	//Este método
+	//Este método recebe o request com dados do form relatório  de parcelas e retorna a view os dados consultados
 	public function searchRelatorioParcelas(Request $request){ 
 		$i = 1;
 		$rawD = [];
@@ -358,17 +357,17 @@ class RelatorioController extends Controller
 		$dateEnd = $request->input('dateEnd');
 		$filterDate = $request->input('filterDate');
 		$filterSit = $request->input('filterSit');
+		$filterPlan = $request->input('filterPlan'); 
 		//$filterPlan = $request->input('filterPlan');
 		$from = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dateStart'))))));
-		$to = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dateEnd'))))));  
-		
+		$to = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dateEnd'))))));   
 		//Se validou existencia de datas ....
 		if($filterDate == 1) { array_push($rawD, 'dt_vencimento');}
 		else if($filterDate == 2) { array_push($rawD, 'dt_pagamento');}
 		else if($filterDate == 3) { array_push($rawD, 'dt_fat');}
 		if($filterSit == 1) { array_push($rawP, " status like 'Pago' ");}
 		else if($filterSit == 2) { array_push($rawP, " status like 'Em aberto' ");}
- 		
+ 		if($filterPlan) {array_push($rawP, ' plan_id = '.$filterPlan);}
  		//Validar se datas estão vazias
 		if(!$dateStart && !$dateEnd){ 
 			$msg = 'Informar pelo menos uma data para consulta!';
@@ -380,10 +379,11 @@ class RelatorioController extends Controller
 			$data = $this->consultar_parcelas($from,NULL,$rawD,$rawP); 
 		}else{ 
 			$data = $this->consultar_parcelas(NULL,$to,$rawD,$rawP); 
-		} 
+		}
+		return view('relatorios.parcelas',compact('i','data'));
 	}
 
-	//Este método auxilia a criação da query para consultar parcelas, e faz a consulta retornando os dados
+	//Este método auxilia a criação da query para consultar parcelas, e faz a consulta retornando os dados ao searchRelatorioParcelas
 	private function consultar_parcelas($from = NULL,$to = NULL,$rawD,$rawP){
 		$query = '';
 		if(count($rawP) != 0){
@@ -394,13 +394,12 @@ class RelatorioController extends Controller
 			if($x != (count($rawP) - 1) ){  
 				$query = $query . ' OR ';
 			}
-		}
-		echo "SELECT * FROM academia.parcelas WHERE ".$this->getRawParcela($from,$to,$rawD).$query;
-		exit();
-		//$consulta = DB::select(DB::raw("SELECT * FROM academia.parcelas WHERE ".$this->getRaw($from,$to,$rawD).$query));
+		} 
+		$consulta = DB::select(DB::raw("SELECT * FROM academia.parcelas WHERE ".$this->getRawParcela($from,$to,$rawD).$query." AND deleted_at is null"));
 		return $consulta;
 	}
 
+	//Este método auxilia a construção da query para ser utilizado no metodo consultar_parcelas
 	private function getRawParcela($from = NULL,$to = NULL,$rawD){
 		$raw = $rawD[0];
 		if($from!=NULL && $to!=NULL){  

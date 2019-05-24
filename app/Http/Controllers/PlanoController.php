@@ -307,6 +307,7 @@ class PlanoController extends Controller
         for($i=0 ; $i<$condicao; $i++){
             $parcela = new Parcela();
             $parcela->venda_id = $venda->id;
+            $parcela->plan_id = $plano->id;
             $parcela->nome_cliente = $cliente->name;
             $parcela->cliente_id = $venda->cliente_id;
             $parcela->dt_vencimento = date('Y-m-d', strtotime("+".$i."months",strtotime($venda->dt_neg)));

@@ -72,9 +72,8 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
-        
-        $(document).ready(function() {   
-            
+        let now = new Date();
+        $(document).ready(function() { 
             $('#dt_neg').datepicker({
                 dateFormat: 'dd/mm/yy',
                 dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
@@ -83,6 +82,8 @@
                 monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
                 monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
             }); 
+            $('#dt_neg').val(getDate());
+
             let lastProductValue;
             let valueTotal;
             let memoryBeforeDesconto;
@@ -96,7 +97,6 @@
             carregarSelectProdutos();
             addProductOnTable();
             listenDesconto();
-            
         });
         //Área de Getters e Setters
         function getContador(){
@@ -126,6 +126,9 @@
         function getMemoryDesconto(){
             return parseFloat(this.memoryDesconto);
         }
+        function getDate(){
+            return (now.getDate() +"/"+ (now.getMonth()+1) +"/"+ now.getFullYear());
+        } 
         function setMemoryDesconto(valor){
             this.memoryDesconto = valor;
         }

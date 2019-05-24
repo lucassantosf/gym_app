@@ -72,11 +72,13 @@ class VendaAvulsaController extends Controller{
         }        
         //Gerar a parcela única da venda avulsa
     	$parcelaVendaAvulsa = new Parcela();
-    	$parcelaVendaAvulsa->venda_avulsa_id = $venda_avulsa->id;
+        $parcelaVendaAvulsa->venda_avulsa_id = $venda_avulsa->id;
+        $parcelaVendaAvulsa->dt_vencimento = $dt_neg;
+    	$parcelaVendaAvulsa->dt_fat = $dt_neg;
     	$parcelaVendaAvulsa->value = $venda_avulsa->value;
     	$parcelaVendaAvulsa->cliente_id = $cliente->id;
     	$parcelaVendaAvulsa->nome_cliente = $cliente->name;
-    	$parcelaVendaAvulsa->save();
+    	$parcelaVendaAvulsa->save(); 
         }
     	return redirect('/clients/'.$cliente->id.'/show');
     }

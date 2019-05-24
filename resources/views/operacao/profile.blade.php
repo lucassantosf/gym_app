@@ -222,7 +222,7 @@
                                     @foreach($vendas as $v) 
                                         <div class="alert alert-primary" role="alert">  
                                             {{$v->plano_name}}
-                                            <a href="/clients/estornarContrato/{{$v->id}}/{{$v->cliente_id}}" class="btn btn-outline-danger btn-sm">Estornar</a><br>
+                                            <a href="/clients/estornarContrato/{{$v->id}}/{{$v->cliente_id}}" class="btn btn-outline-danger btn-sm" style="float: right;">Estornar</a><br>
                                             Duração do contrato<br>
                                              
                                             <label id="dt_inicio">{{$v->dt_inicio}}</label>

@@ -61,10 +61,42 @@
                     <div class="card-header">
                         Dados de parcelas < <a href="/relatorios/parcelas">Voltar</a>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body"> 
                         @if(isset($msg))
                             <div class="alert alert-danger">{{$msg}}</div>
                         @endif
+                        @if(isset($data))
+                                <table class="table table-sm table-responsive table-hover" style="text-align: center">
+                                    <thead>
+                                        <tr>
+                                            <td>Nº Parcela</td>
+                                            <td>Responsável</td> 
+                                            <td>Data Faturamento</td>
+                                            <td>Data Vencimento</td>
+                                            <td>Data Pagamento</td>
+                                            <td>Nº Contrato</td>
+                                            <td>Nº Venda Avulsa</td>
+                                            <td>Situação</td>
+                                            <td>Valor</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($data as $d)
+                                        <tr>
+                                            <td>{{$d->id}}</td>
+                                            <td>{{$d->nome_cliente}}</td>
+                                            <td>{{$d->dt_fat}}</td>
+                                            <td>{{$d->dt_vencimento}}</td>
+                                            <td>{{$d->dt_pagamento}}</td>
+                                            <td>{{$d->venda_id}}</td>
+                                            <td>{{$d->venda_avulsa_id}}</td>
+                                            <td>{{$d->status}}</td>
+                                            <td>R${{$d->value}}</td>
+                                        </tr>     
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                        @endif 
                     </div>
                 @endif
             </div>
