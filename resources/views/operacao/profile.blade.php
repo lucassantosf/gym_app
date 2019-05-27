@@ -225,11 +225,11 @@
                                             <a href="/clients/estornarContrato/{{$v->id}}/{{$v->cliente_id}}" class="btn btn-outline-danger btn-sm" style="float: right;">Estornar</a><br>
                                             Duração do contrato<br>
                                              
-                                            <label id="dt_inicio">{{$v->dt_inicio}}</label>
+                                            <label id="dt_inicio{{$v->id}}">{{$v->dt_inicio}}</label>
                                          
-                                            <label id="dt_fim" style="float: right">{{$v->dt_fim}}</label> 
+                                            <label id="dt_fim{{$v->id}}" style="float: right">{{$v->dt_fim}}</label> 
                                             <div class="progress"> 
-                                                <div class="progress-bar bg-success" role="progressbar"  aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" id="progressDt"></div>
+                                                <div class="progress-bar bg-success" role="progressbar"  aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" id="progressDt{{$v->id}}"></div>
                                             </div> 
                                             Valor Total Plano: R${{$v->value_total}} 
                                         </div>  
@@ -351,9 +351,7 @@
         $(document).ready(function() {                
             mascaraCampos();
             //Se for ativo mostrar progressBar duracao do contrato
-            @if($isAtivo)
             progressBarDuracao(); 
-            @endif 
         });
 
         //Esta função paga uma parcela diretamente pelo profile e no final busca o recibo que acabou de ser gerado
@@ -398,28 +396,32 @@
         function progressBarDuracao(){
             //Barra de progresso duração do plano
             //recuperar valor das datas do plano
-            dt_inicio = $("#dt_inicio").html(); 
-            dt_fim = $("#dt_fim").html();  
-            //criar obj para datas inicio e fim 
-            numbers1 = dt_inicio.split('-'); 
-            date1 = new Date(numbers1[0], numbers1[1] - 1,numbers1[2]); 
-            numbers2 = dt_fim.split('-'); 
-            date2 = new Date(numbers2[0], numbers2[1] - 1,numbers2[2]);
-            //calcular diferença de dias entre inicio fim
-            timeDiff = Math.abs(date2.getTime() - date1.getTime());
-            diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-            //calcular diferença de dias entre inicio dt atual            
-            today = new Date();    
-            timeDiff2 = Math.abs(today.getTime() - date1.getTime()); 
-            diffDays2 = Math.ceil(timeDiff2 / (1000 * 3600 * 24));  
-            //calcular o valor da progressBar 
-            if(date1 > today) {
-                //Se o plano iniciar em data superior à atual zerar a progressBar
-                x = 0;
-            }else{
-                x = (100 * ((diffDays2)-1)) / diffDays;   
-            } 
-            $("#progressDt").css('width',x+'%');
+            @if(count($vendas)>0) 
+                @foreach($vendas as $v) 
+                    dt_inicio = $("#dt_inicio{{$v->id}}").html(); 
+                    dt_fim = $("#dt_fim{{$v->id}}").html();  
+                    //criar obj para datas inicio e fim 
+                    numbers1 = dt_inicio.split('-'); 
+                    date1 = new Date(numbers1[0], numbers1[1] - 1,numbers1[2]); 
+                    numbers2 = dt_fim.split('-'); 
+                    date2 = new Date(numbers2[0], numbers2[1] - 1,numbers2[2]);
+                    //calcular diferença de dias entre inicio fim
+                    timeDiff = Math.abs(date2.getTime() - date1.getTime());
+                    diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+                    //calcular diferença de dias entre inicio dt atual            
+                    today = new Date();    
+                    timeDiff2 = Math.abs(today.getTime() - date1.getTime()); 
+                    diffDays2 = Math.ceil(timeDiff2 / (1000 * 3600 * 24));  
+                    //calcular o valor da progressBar 
+                    if(date1 > today) {
+                        //Se o plano iniciar em data superior à atual zerar a progressBar
+                        x = 0;
+                    }else{
+                        x = (100 * ((diffDays2)-1)) / diffDays;   
+                    } 
+                    $("#progressDt{{$v->id}}").css('width',x+'%');
+                @endforeach
+            @endif 
         }
 
         //Esta função é utilizada para consultar CEP

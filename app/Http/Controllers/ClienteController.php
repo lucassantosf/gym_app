@@ -103,7 +103,7 @@ class ClienteController extends Controller
             $consulta2 = DB::table('vendas')->where([
                 ['cliente_id',$client->id],
                 ['deleted_at',NULL],
-            ])->get(); 
+            ])->orderBy('dt_inicio', 'desc')->get(); 
             foreach ($consulta2 as $obj) {  
                 array_push($vendas, $obj);
             }  
