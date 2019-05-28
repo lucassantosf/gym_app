@@ -13,12 +13,13 @@ use App\Parcela;
 use App\Recibo;
 use App\ItemRecibo;
 
-class ClienteController extends Controller
-{   
+class ClienteController extends Controller{   
     //Tela de consultar clientes
     public function indexClients(){ 
-    	$clients = Cliente::all();
-    	return view('cadastros.client',compact('clients'));
+    	//$clients = Cliente::all();
+        $clients = Cliente::paginate(10);
+    	
+        return view('cadastros.client',compact('clients'));
     }
 
     //Retornar o formulário de incluir cliente
