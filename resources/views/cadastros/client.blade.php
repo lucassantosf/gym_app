@@ -13,36 +13,31 @@
                     </div>
                     Total de {{$clients->total()}} clientes
                 </div> 
-                <div class="card-body" id="ulItens">
-                    <ul class="list-group">
+                <div class="card-body ulItens" id="cardBody">
+                    <ul class="list-group" id="list1">
                     @if(isset($clients))
                         @foreach($clients as $c)
-                            <li class="list-group-item"><a href="/clients/{{$c->id}}/show" class="link">{{$c->name}}</a> - {{$c->situaçao}}</li> 
+                        <li class="list-group-item"><a href="/clients/{{$c->id}}/show" class="link">{{$c->name}}</a> - {{$c->situaçao}}</li> 
                         @endforeach
                     @endif
-                    </ul>
+                    </ul> 
                 </div> 
-                <div class="card-footer" style="text-align: center">
+                <div class="card-footer component_pag" style="text-align: center">
                     {{$clients->links()}}
                 </div>
+                <ul class="list-group ulItens" id="list2" style="display: none;">
+                    @if(isset($clients2))
+                        @foreach($clients2 as $c)
+                    <li class="list-group-item"><a href="/clients/{{$c->id}}/show" class="link">{{$c->name}}</a> - {{$c->situaçao}}</li> 
+                        @endforeach
+                    @endif
+                </ul>   
             </div> 
         </div>
     </div>
 </div>
 @endsection 
-@section('javascript')
-    <script type="text/javascript" src="jquery-2.0.2.min.js">
-    <script type="text/javascript" src="jquery.hideseek.min.js">
-    <script type="text/javascript">
-        $(function(){
-            $("#txtBusca").focus(); 
-            $("#txtBusca").keyup(function(){
-                var texto = $(this).val();
-                $("#ulItens li").show();
-                $("#ulItens li").each(function(){
-                    if($(this).text().toUpperCase().indexOf(texto.toUpperCase()) < 0) $(this).hide(); 
-                });
-            });
-        });    
-    </script>
+@section('javascript') 
+    <script type="text/javascript" src="{{asset('js/components/filter_list_clients.js')}}"> 
+    </script> 
 @endsection

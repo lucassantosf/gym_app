@@ -16,10 +16,10 @@ use App\ItemRecibo;
 class ClienteController extends Controller{   
     //Tela de consultar clientes
     public function indexClients(){ 
-    	//$clients = Cliente::all();
+    	$clients2 = Cliente::all();
         $clients = Cliente::paginate(10);
     	
-        return view('cadastros.client',compact('clients'));
+        return view('cadastros.client',compact('clients','clients2'));
     }
 
     //Retornar o formulário de incluir cliente
