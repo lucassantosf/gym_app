@@ -1,5 +1,4 @@
-@extends('layouts.app')
- 
+@extends('layouts.app') 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -10,10 +9,10 @@
                         <form action="/vendas/viewPost" method="POST" id="formVenda">@csrf
                         <div class="row">
                             <div class="col-sm-3 col-md-3">
-                                <label for="dt_neg">Data Venda</label>
+                                <label for="dataNeg">Data Venda</label>
                             </div>
                             <div class="col-sm-3 col-md-3"> 
-                                <input class="form-control form-control-sm" type="text" class="datapicker" id="dt_neg" name="dt_neg">
+                                <input class="form-control form-control-sm" type="text" class="datapicker" id="dataNeg" name="dataNeg">
                             </div> 
                         </div> 
                     @if(isset($cliente_id)) 
@@ -68,28 +67,17 @@
 @endsection
 @section('javascript')
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript">
-        let now = new Date();
-        $(document).ready(function() { 
-            $('#dt_neg').datepicker({
-                dateFormat: 'dd/mm/yy',
-                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
-                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
-            }); 
-            $('#dt_neg').val(getDate());
-
+    <script type="text/javascript" src="{{asset('js/components/datepicker.js')}}"> 
+    </script>
+    <script type="text/javascript" src="{{asset('js/util/date.js')}}"> 
+    </script>
+    <script type="text/javascript"> 
+        $(document).ready(function() {   
             let lastProductValue;
             let valueTotal;
             let memoryBeforeDesconto;
             let memoryDesconto;
-            let contador;
-
+            let contador;  
             initCampos();
             setValueTotal(0);
             setContador(0);

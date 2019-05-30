@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('layouts.app') 
 @section('content')
 <div class="container" id="containerMain">
     <div class="row justify-content-center">
@@ -53,6 +52,7 @@
 </div> 
 @endsection
 @section('javascript')
+	<script type="text/javascript" src="{{asset('js/app.js')}}"></script>
     <script type="text/javascript">
         //Função de inicialização ao carregar DOM
         $(document).ready(function() {   

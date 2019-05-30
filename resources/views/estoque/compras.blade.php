@@ -78,7 +78,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2">Data Compra</label>
                                 <div class="col-sm-2">
-                                    <input type="text"  class="form-control form-control-sm datepicker" id="dt_compra" name="dt_compra"> 
+                                    <input type="text"  class="form-control form-control-sm datepicker" id="dt_compra" name="dt_compra">  
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -138,19 +138,9 @@
 </div>
 @endsection 
 @section('javascript')
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript">
-        //Método para DOM quando estiver carregado
-        $(document).ready(function() {  
-            $( function(data) {
-
-                //Exibir o plugin de calendário
-                $( ".datepicker" ).datepicker();
-            }); 
-        });
-
+    <script type="text/javascript" src="{{asset('js/components/datepicker.js')}}"> 
+    </script> 
+    <script type="text/javascript">  
         //Adicionar linha à tabela de itens da compra
         function addItemCompra(){
             let qtdProd = $("#qtdProd").val();
@@ -170,22 +160,18 @@
                 ); 
             } 
             resetarInputItem();
-        }
-
+        } 
         //Remover linha selecionado
         function removeItemCompra(data){
             $(data).parents('tr').remove();
-        }
-
+        } 
         //Método para resetar os inputs de dados do itens à cada vez que é inserido uma linha na tabela
         function resetarInputItem(){
             $("#qtdProd").val('');
             $("#vlUninProd").val('');
             $("#produtoSelect").val('');
-            $("#descontoProd").val('');
-
-        }
-
+            $("#descontoProd").val(''); 
+        } 
         //Estornar a compra via AJAX e remover a linha da tabela
         function estornarCompraById(data,id){
             $(data).parents('tr').remove();

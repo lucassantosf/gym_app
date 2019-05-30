@@ -298,8 +298,8 @@ class PlanoController extends Controller
             $venda->value_total = $valor_total;           
         }  
         $venda->dt_neg = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dataNeg'))))));//data negociacao
-        $venda->dt_inicio = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dataStart'))))));//data inicio 
-        $venda->dt_fim = date('Y-m-d', strtotime("+".$duracao."months",strtotime(date('Y-m-d',strtotime(str_replace('/', '-',$request->input('dataStart'))))))); //data fim de acordo à duracao 
+        $venda->dt_inicio = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dateStart'))))));//data inicio 
+        $venda->dt_fim = date('Y-m-d', strtotime("+".$duracao."months",strtotime(date('Y-m-d',strtotime(str_replace('/', '-',$request->input('dateStart'))))))); //data fim de acordo à duracao 
         $venda->duracao = $duracao;
         $venda->save(); 
         //salvar cada parcela no banco

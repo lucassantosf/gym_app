@@ -18,7 +18,7 @@ class CardexController extends Controller
     } 
     //Este método apenas retorna os itens da cardex que estão no intervalo de datas
     public function searchCardex($from,$to,$produto_id){  
-		$consulta =	DB::table('cardex')->where('produto_id',$produto_id)->whereBetween('created_at', [$from, $to])->get(); 
+		$consulta =	DB::table('cardex')->where('produto_id',$produto_id)->whereBetween('dt_balanco', [$from, $to])->get(); 
 		return json_encode($consulta);
     }
 }

@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use App\Compra;
 use App\ItemCompra;
 
-class CompraController extends Controller
-{	
+class CompraController extends Controller{	
 	//Exibir o histórico de compras lançadas
     public function indexCompras(){
     	$i = 0;
@@ -36,9 +35,9 @@ class CompraController extends Controller
     public function postFormCompra(Request $request){
     	$compra = new Compra();
     	$compra->fornecedor_id = $request->input('fornecedorSelect');
-    	$compra->nota_fiscal = $request->input('numNF');
-    	$compra->dt_emissao = $request->input('dt_emissao');
-    	$compra->dt_compra = $request->input('dt_compra');
+    	$compra->nota_fiscal = $request->input('numNF');  
+        $compra->dt_emissao = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-',$request->input('dt_emissao'))))));
+    	$compra->dt_compra = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-',$request->input('dt_compra'))))));
     	$compra->save();  
     	$itens = $request->input('produtos');
     	$qtdProd = $request->input('qtdProd');
@@ -80,7 +79,7 @@ class CompraController extends Controller
                 //Inserir dados na cardex
                 DB::table('cardex')->insert([
                     'produto_id'=>$itens[$i],
-                    'venda_avulsa_id'=>$compra->id,
+                    'compra_id'=>$compra->id,
                     'entrada'=>$qtdProd[$i],
                     'saldo_anterior'=>0,
                     'saldo_atual'=>$qtdProd[$i],

@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('layouts.app') 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -32,25 +31,21 @@
                     <fieldset disabled>
                         <div class="form-row"> 
                         <input placeholder="Duração" class="form-control center" style="text-align:center; margin: 0 auto;"></div>
-                    </fieldset>
-                      
+                    </fieldset> 
                     <!-- Incluir duracoes dos planos via jquery-->
                     <div class="table-responsive">
                         <table class="table" id="durPlan"> 
                         </table>
-                    </div>
-                     
+                    </div> 
                     <fieldset disabled>
                         <div class="form-row"> 
                         <input placeholder="Modalidades" class="form-control center" style="text-align:center; margin: 0 auto;"></div>
-                    </fieldset>
-                    
+                    </fieldset> 
                     <!-- Incluir modalidades nos planos via jquery-->                        
                     <div class="table-responsive">
                         <table class="table" id="modalsPlan"> 
                         </table>
-                    </div>
-
+                    </div> 
                     <!-- Modal para os horários de turmas-->
                     @if(isset($modals))
                         @foreach($modals as $m)
@@ -129,8 +124,7 @@
                             </div>
                         @endforeach
                     @endif
-                </div>
-
+                </div> 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Conferir negociação</button>
                     </form>
@@ -141,6 +135,7 @@
 </div>
 @endsection
 @section('javascript')
+    <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function() { 
             //Evento quando o select para plano é alterado

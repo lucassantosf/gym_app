@@ -48,9 +48,8 @@ class BalancoController extends Controller
     	$prods_name = $request->input('prods_name'); 
     	$qtdProd = $request->input('qtdProd');
     	$lastSaldo = $request->input('lastSaldo');
-    	$diffence = $request->input('diffence'); 
-    	//Salvar o Balanço 
-    	$balanco->dt_balanco = $request->input('dt_emissao');
+    	$diffence = $request->input('diffence');  
+    	$balanco->dt_balanco = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-',$request->input('dt_emissao'))))));
     	$balanco->save(); 
     	//Salvar cada item do balanco
     	for ($i=0; $i < count($prods_id); $i++) { 

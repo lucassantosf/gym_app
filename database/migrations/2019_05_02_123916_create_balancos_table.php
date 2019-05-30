@@ -15,7 +15,7 @@ class CreateBalancosTable extends Migration
     {
         Schema::create('balancos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('dt_balanco');
+            $table->date('dt_balanco');
             $table->softDeletes();
             $table->timestamps(); 
         });

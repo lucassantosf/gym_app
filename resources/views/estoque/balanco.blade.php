@@ -102,16 +102,11 @@
 </div>
 @endsection 
 @section('javascript') 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="{{asset('js/components/datepicker.js')}}"> 
+    </script>
     <script type="text/javascript">
         //Método para DOM quando estiver carregado
-        $(document).ready(function() {  
-            $( function(data) { 
-                //Exibir o plugin de calendário
-                $( ".datepicker" ).datepicker();
-            });  
+        $(document).ready(function() {   
             setItens(); 
         });
 

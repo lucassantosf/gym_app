@@ -18,8 +18,8 @@ class CreateComprasTable extends Migration
             $table->integer('fornecedor_id')->unsigned();
             $table->foreign('fornecedor_id')->references('id')->on('fornecedores');
             $table->string('nota_fiscal');
-            $table->string('dt_emissao');
-            $table->string('dt_compra');
+            $table->date('dt_emissao');
+            $table->date('dt_compra');
             $table->softDeletes();
             $table->timestamps(); 
         });

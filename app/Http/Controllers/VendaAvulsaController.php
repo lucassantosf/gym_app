@@ -20,7 +20,7 @@ class VendaAvulsaController extends Controller{
     	$venda_avulsa = new VendaAvulsa();
     	$venda_avulsa->desconto = $request->input("desconto");
     	$venda_avulsa->value = $request->input("vlTotal");
-        $dt_neg = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dt_neg'))))));
+        $dt_neg = date('Y-m-d',strtotime(date('d-m-Y',strtotime(str_replace('/','-', $request->input('dataNeg'))))));
         $venda_avulsa->dt_neg = $dt_neg;
     	$venda_avulsa->cliente_id = $cliente->id;
     	$venda_avulsa->save();

@@ -200,9 +200,10 @@
                 </a>   
             </div>
         </div>  
-    </footer>
-    <script type="text/javascript" src="{{asset('js/app.js')}}"> 
-    </script>
+    </footer> 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
     @hasSection('javascript')
         @yield('javascript')
     @endif 

@@ -1,5 +1,4 @@
-@extends('layouts.app')
- 
+@extends('layouts.app') 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -345,6 +344,7 @@
 </div>
 @endsection
 @section('javascript')
+    <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
     <script type="text/javascript">
         //InitFunctions

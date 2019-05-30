@@ -1,4 +1,4 @@
- @extends('layouts.app')
+@extends('layouts.app')
 @section('content')
 <div class="container">
     <div class="row justify-content-center"> 
@@ -54,26 +54,18 @@
 </div>
 @endsection 
 @section('javascript')  
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript">
-        //Método para DOM quando estiver carregado
-        $(document).ready(function() {  
-            $( function(data) { 
-                //Exibir o plugin de calendário
-                $( ".datepicker" ).datepicker();
-            });  
-        }); 
+	<script type="text/javascript" src="{{asset('js/components/datepicker.js')}}"> 
+    </script>
+    <script type="text/javascript"> 
         //Este método recebe os valores das datas e requisita os dados para API - dados de retorno inseridos na tabela
         function getSearch(){
             let prod_id = $("#prods").val();
             let dt_inicio = $("#dt_inicio").val();
             let dt_fim = $("#dt_fim").val(); 
             let date = dt_inicio.split('/'); 
-            dt_inicio = `${date[2]}-${date[0]}-${date[1]}`;
+            dt_inicio = `${date[2]}-${date[1]}-${date[0]}`;
             date = dt_fim.split('/');
-            dt_fim = `${date[2]}-${date[0]}-${date[1]}`;  
+            dt_fim = `${date[2]}-${date[1]}-${date[0]}`;  
             if(dt_inicio<dt_fim){
                 $.getJSON("/estoque/cardex/"+dt_inicio+"/"+dt_fim+"/"+prod_id, function( data ) { 
                     $("#cardexInfos").html('');
