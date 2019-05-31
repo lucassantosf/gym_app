@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -54,22 +53,7 @@
     </div>
 </div>
 @endsection
-
 @section('javascript')
-    <script type="text/javascript">
-        $(document).ready(function() {    
-            $("#formUser").submit(function() {
-                let password = $("#password").val();
-                let password_confirm = $("#password_confirm").val();
-
-                let password_new = $("#password_new").val();
-                let password_confirm_new = $("#password_confirm_new").val();
-
-                if(password != password_confirm || password_new != password_confirm_new){
-                    alert('Os campos de senha e confirmação não conferem');
-                    return false;
-                }               
-            });
-        });
-    </script>    
-@endsection
+    <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/cadastros/formUser.js')}}"></script> 
+@endsection 

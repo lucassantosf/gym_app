@@ -7,3 +7,6 @@
 	<a href="/estoque/posicaoEstoque">Posição de Estoque</a><br>  
 </div>
 @endsection
+@section('javascript')
+    <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+@endsection    

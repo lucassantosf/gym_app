@@ -199,8 +199,8 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 @endsection
 @section('javascript') 
-    <script type="text/javascript" src="{{asset('js/components/datepicker.js')}}"> 
-    </script>  
+    <script type="text/javascript" src="{{asset('js/components/datepicker.js')}}"></script>  
 @endsection

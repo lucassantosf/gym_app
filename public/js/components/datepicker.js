@@ -1,5 +1,5 @@
 $(document).ready(function() {  
-	$('#dateStart,#dateEnd,#dateCadStart,#dateCadEnd,.datepicker,#dataNeg,#date').datepicker({
+	$('#dateStart,#dateEnd,#dateCadStart,#dateCadEnd,.datepicker,#dataNeg,#date,#dt_compra,#dt_emissao').datepicker({
 	    dateFormat: 'dd/mm/yy',
 	    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
 	    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],

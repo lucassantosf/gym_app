@@ -141,3 +141,6 @@
     </div>
 </div>
 @endsection
+@section('javascript')   
+    <script type="text/javascript" src="{{asset('js/app.js')}}"></script> 
+@endsection 

@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('layouts.app') 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -36,8 +35,8 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 @endsection 
 @section('javascript') 
-    <script type="text/javascript" src="{{asset('js/components/filter_list_clients.js')}}"> 
-    </script> 
+    <script type="text/javascript" src="{{asset('js/cadastros/client.js')}}"></script> 
 @endsection

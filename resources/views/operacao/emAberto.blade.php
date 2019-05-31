@@ -1,5 +1,4 @@
-@extends('layouts.app')
- 
+@extends('layouts.app') 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -14,12 +13,10 @@
                     <label class="alert alert-primary">Selecione as parcelas</label><br>
                     <div id="selecionarParcela">
                     @if(isset($parcelas))
-                        @foreach($parcelas as $p)
-                            
+                        @foreach($parcelas as $p) 
                                 <input type="checkbox" class="parcela" name="parcela[]" id="{{$p->id}}" value="{{$p->id}}">
                                     Cod.{{$p->id}}-R$ 
-                                <label for="{{$p->id}}">{{$p->value}}</label> <br>
-                                                       
+                                <label for="{{$p->id}}">{{$p->value}}</label> <br> 
                         @endforeach
                     @endif
                     </div>
@@ -35,43 +32,8 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 @endsection
 @section('javascript')
-    <script type="text/javascript">
-        
-        $(document).ready(function() { 
-            //Desmarcar todos checkbox - pois no rollback da pagina ficaria marcado
-            $('.parcela').prop("checked", false);
-            calcularValorTotal(0);
-        });
-
-        function calcularValorTotal(valor){
-            total = valor;
-            $(".parcela").change(function(){
-                if($(this).prop("checked") == true){
-                    $("#total").html('');                    
-                    label = $(this).prop("labels");
-                    text = $(label).text();
-                    valor = parseFloat(text);
-                    total = total + valor;
-                    $("#total").append('<input type="hidden" name="valorTotal" value="'+total.toFixed(2)+'"> '); 
-                    $("#total").append('R$');   
-                    $("#total").append(total.toFixed(2));   
-                                      
-                }else{
-                    $("#total").html('');                    
-                    label = $(this).prop("labels");
-                    text = $(label).text();
-                    valor = parseFloat(text);
-                    total = total - valor;
-                    $("#total").append('<input type="hidden" name="valorTotal" value="'+total.toFixed(2)+'"> '); 
-                    $("#total").append('R$');   
-                    $("#total").append(total.toFixed(2)); 
-                }
-            });
-        }
-
-    </script>
+    <script type="text/javascript" src="{{asset('js/operacao/emAberto.js')}}"></script> 
 @endsection
-
-
