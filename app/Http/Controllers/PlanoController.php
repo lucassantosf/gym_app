@@ -39,7 +39,9 @@ class PlanoController extends Controller
 
     //Este método trata o post do formulário de cadastro do plano
     public function postFormPlan(Request $request){
-    	// Criar o plano e retornar o ID
+    	//Validar campos
+        
+        // Criar o plano e retornar o ID
         $id_plan = DB::table('planos')->insertGetId([
             'name'=>$request->input('name'),
             'status'=>$request->input('status') == 'A' ? true : false,

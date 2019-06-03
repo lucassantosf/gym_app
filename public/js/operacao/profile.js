@@ -39,37 +39,6 @@ function mascaraCampos(){
     $("#phone").mask('(00)0 0000-0000', {reverse: true});
     $("#cep").mask('00000-000', {reverse: true});
 } 
-//Esta função inicializa o progressBar da duração do contrato do aluno
-function progressBarDuracao(){
-    //Barra de progresso duração do plano
-    //recuperar valor das datas do plano
-    @if(count($vendas)>0) 
-        @foreach($vendas as $v) 
-            dt_inicio = $("#dt_inicio{{$v->id}}").html(); 
-            dt_fim = $("#dt_fim{{$v->id}}").html();  
-            //criar obj para datas inicio e fim 
-            numbers1 = dt_inicio.split('-'); 
-            date1 = new Date(numbers1[0], numbers1[1] - 1,numbers1[2]); 
-            numbers2 = dt_fim.split('-'); 
-            date2 = new Date(numbers2[0], numbers2[1] - 1,numbers2[2]);
-            //calcular diferença de dias entre inicio fim
-            timeDiff = Math.abs(date2.getTime() - date1.getTime());
-            diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-            //calcular diferença de dias entre inicio dt atual            
-            today = new Date();    
-            timeDiff2 = Math.abs(today.getTime() - date1.getTime()); 
-            diffDays2 = Math.ceil(timeDiff2 / (1000 * 3600 * 24));  
-            //calcular o valor da progressBar 
-            if(date1 > today) {
-                //Se o plano iniciar em data superior à atual zerar a progressBar
-                x = 0;
-            }else{
-                x = (100 * ((diffDays2)-1)) / diffDays;   
-            } 
-            $("#progressDt{{$v->id}}").css('width',x+'%');
-        @endforeach
-    @endif 
-} 
 //Esta função é utilizada para consultar CEP
 function consultar(){
     cep = $('#cep').val();

@@ -21,13 +21,13 @@
                     <form action="/cadastros/formUser" method="POST" id="formUser">
                         @csrf
                        <label>Nome:</label>                        
-                            <input type="text" class="form-control" placeholder="Nome" name="name" id="name">
-                            <label>Email:</label>                
-                            <input type="email" class="form-control" placeholder="Email" name="email" id="email">
-                            <label>Senha:</label>                      
-                            <input type="password" class="form-control" placeholder="Password" name="password" id="password">
-                            <label>Confirmar Senha:</label>                        
-                            <input type="password" class="form-control" placeholder="Password Confirm" name="password_confirm" id="password_confirm"><br>
+                        <input type="text" class="form-control" placeholder="Nome" name="name" id="name" value="{{@old('name')}}">
+                        <label>Email:</label>                
+                        <input type="email" class="form-control" placeholder="Email" name="email" id="email" value="{{@old('email')}}">
+                        <label>Senha:</label>                      
+                        <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+                        <label>Confirmar Senha:</label>                        
+                        <input type="password" class="form-control" placeholder="Password Confirm" name="password_confirm" id="password_confirm"><br>
                 </div>
                 @endif
                 <div class="card-footer">
@@ -37,18 +37,15 @@
                                 {{$error}}
                             </div>
                         @endforeach
-                    @endif    
-
+                    @endif     
                     @if(isset($user))
                         <button class="btn btn-info" type="submit">Editar</button>
                     @else                
                         <button class="btn btn-primary" type="submit">Cadastrar</button>
                     @endif
                     </form>
-                </div>
-
-            </div>
-            
+                </div> 
+            </div> 
         </div>
     </div>
 </div>

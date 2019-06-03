@@ -10,14 +10,14 @@
                         <a style="float: right" href="/cadastros/formPlan" class="btn btn-outline-info btn-sm">Cadastrar</a>
                     </div>
                     <div class="card-body">
-                        <table class="table table-responsive-sm table-striped table-borderless table-hover">
+                        <table class="table table-responsive table-responsive-sm table-striped table-borderless table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Descrição</th>
                                     <th>Duraçoes</th>
                                     <th>Modalidades</th>
-                                    <th scope="col" colspan="2">Situação</th>
+                                    <th colspan="3">Situação</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,6 +50,8 @@
                                     </td>
                                     <td>
                                         <a href="/cadastros/plan/{{$p->id}}/edit" class="btn btn-sm btn-info">Editar</a>
+                                    </td>
+                                    <td>
                                         <a href="/cadastros/plan/{{$p->id}}/delete" class="btn btn-sm  btn-danger">Apagar</a>
                                     </td>
                                 </tr>
@@ -89,8 +91,7 @@
                                 <div class="col-sm-3">Modalidades</div>
                                 <div class="col-sm-9">                                
                                     <div class="input-group-prepend">                             
-                                        <select class="custom-select" name="lista" id="lista">
-                                            <option selected></option>
+                                        <select class="custom-select" name="lista" id="lista"> 
                                             @foreach($modals as $m)
                                                 <option value="{{$m->id}}">{{$m->name}}</option>
                                             @endforeach                                      
@@ -129,7 +130,7 @@
         @endif
         <!-- Form para editar o plano-->
         @if($i==2)
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Cadastro de Planos</div>
                     <div class="card-body">
@@ -165,8 +166,7 @@
                                 <div class="col-sm-3">Modalidades</div>
                                 <div class="col-sm-9">                                
                                     <div class="input-group-prepend">
-                                        <select class="custom-select" name="lista" id="lista">
-                                            <option selected></option>
+                                        <select class="custom-select" name="lista" id="lista"> 
                                             @foreach($modals as $m)
                                                 <option value="{{$m->id}}">{{$m->name}}</option>
                                             @endforeach                                      
@@ -182,8 +182,7 @@
                                         <tbody>  
                                             @foreach($modals as $m)
                                                 @if(isset($mt))                                                
-                                                    @foreach($mt as $ma)
-                                                        
+                                                    @foreach($mt as $ma) 
                                                         @if($ma->modal_id == $m->id)
                                                         <tr>
                                                             <td><input type="hidden" name="modals[]" value="{{$m->id}}">{{$m->name}}</td>
@@ -196,8 +195,7 @@
                                         </tbody>
                                     </table>                             
                                 </div>
-                            </div>
-
+                            </div> 
                             <div class="form-group row">                            
                                 <div class="col-sm-3">Ativo</div>
                                 <div class="col-sm-9">
@@ -205,14 +203,12 @@
                                         <input class="form-check-input" type="checkbox" id="status" name="status" value="A" @if($plan->status == 1) checked @endif>
                                     </div>
                                 </div>
-                            </div>
-                                        
+                            </div> 
                     </div>
                     <div class="card-footer">      
                         <button class="btn btn-primary btn-sm" type="submit">Editar</button>
                         </form>              
-                    </div>
-
+                    </div> 
                 </div>
             </div>
         @endif
