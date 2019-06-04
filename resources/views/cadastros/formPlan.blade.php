@@ -10,19 +10,19 @@
                         <a style="float: right" href="/cadastros/formPlan" class="btn btn-outline-info btn-sm">Cadastrar</a>
                     </div>
                     <div class="card-body">
-                        <table class="table table-responsive table-responsive-sm table-striped table-borderless table-hover">
+                        <table class="table table-responsive-lg table-striped table-borderless table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Descrição</th>
                                     <th>Duraçoes</th>
                                     <th>Modalidades</th>
-                                    <th colspan="3">Situação</th>
+                                    <th>Situação</th> 
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($plans as $p)
-                                <tr>
+                                <tr onclick="location.href = '/cadastros/plan/{{$p->id}}/edit';">
                                     <th>{{$p->id}}</th>
                                     <td>{{$p->name}}</td>
                                     <td>
@@ -33,13 +33,13 @@
                                     @endforeach
                                     </td>
                                     <td>
-                                    @foreach($mp_id as $mp)
-                                        @foreach($modals as $m)
-                                            @if($mp->plano_id == $p->id && $mp->modal_id == $m->id)
-                                                <span class="badge badge-dark">{{$m->name}}</span>
-                                            @endif
+                                        @foreach($mp_id as $mp)
+                                            @foreach($modals as $m)
+                                                @if($mp->plano_id == $p->id && $mp->modal_id == $m->id)
+                                                    <span class="badge badge-dark">{{$m->name}}</span>
+                                                @endif
+                                            @endforeach
                                         @endforeach
-                                    @endforeach
                                     </td>
                                     <td>
                                         @if($p->status == 1) 
@@ -47,13 +47,7 @@
                                         @else 
                                             Inativo
                                         @endif
-                                    </td>
-                                    <td>
-                                        <a href="/cadastros/plan/{{$p->id}}/edit" class="btn btn-sm btn-info">Editar</a>
-                                    </td>
-                                    <td>
-                                        <a href="/cadastros/plan/{{$p->id}}/delete" class="btn btn-sm  btn-danger">Apagar</a>
-                                    </td>
+                                    </td> 
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -66,14 +60,14 @@
         @if($i==1)
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Cadastro de Planos</div>
+                    <div class="card-header">Cadastro de Planos < <a href="/cadastros/plans">Voltar</a></div>
                     <div class="card-body">
-                        <form action="/cadastros/formPlan" method="POST">
+                        <form action="/cadastros/formPlan" method="POST" id="formPlan">
                             @csrf
                             <div class="form-row">
                                 <label class="col-sm-3">Descrição</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control" placeholder="Descrição">
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="Descrição">
                                 </div>
                             </div>
                             <br>
@@ -83,7 +77,7 @@
                                     <input type="button" class="form-control btn btn-primary btn-sm" id="add_field" value="+">
                                 </div>
                                 <div class="col-sm-1">              
-                                    <input type="text" class="form-control" name="duracao[]" >
+                                    <input type="text" class="form-control" name="duracao[]">
                                 </div>          
                             </div>
                             <br>
@@ -132,10 +126,9 @@
         @if($i==2)
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Cadastro de Planos</div>
-                    <div class="card-body">
-                       
-                        <form action="/cadastros/plan/{{$plan->id}}/edit" method="POST">
+                    <div class="card-header">Cadastro de Planos < <a href="/cadastros/plans">Voltar</a></div>
+                    <div class="card-body">                       
+                        <form action="/cadastros/plan/{{$plan->id}}/edit" method="POST" id="formPlanEdit">
                             @csrf
                             <div class="form-row">
                                 <label class="col-sm-3">Descrição</label>
@@ -143,12 +136,9 @@
                                     <input type="text" name="name" class="form-control" value="{{$plan->name}}">
                                 </div>
                             </div>
-                            <br>
-                            
-                            <div class="form-row" id="duracoes">      
-
-                                <label class="col-sm-3">Durações</label>
-                                                    
+                            <br> 
+                            <div class="form-row" id="duracoes">     
+                                <label class="col-sm-3">Durações</label> 
                                 <div class="col-sm-1">  
                                     <input type="button" class="form-control btn btn-primary btn-sm" id="add_field" value="+">
                                 </div>
@@ -167,14 +157,28 @@
                                 <div class="col-sm-9">                                
                                     <div class="input-group-prepend">
                                         <select class="custom-select" name="lista" id="lista"> 
-                                            @foreach($modals as $m)
-                                                <option value="{{$m->id}}">{{$m->name}}</option>
-                                            @endforeach                                      
-                                        </select>                                
+                                            @if(isset($mt))  
+                                                @php 
+                                                    $modals_bd = []; 
+                                                @endphp                                               
+                                                @foreach($mt as $ma) 
+                                                    @php
+                                                        array_push($modals_bd,$ma->modal_id) 
+                                                    @endphp
+                                                @endforeach
+                                            @endif
+                                            @if(isset($modals))  
+                                                @foreach($modals as $m) 
+                                                    @if (!in_array($m->id, $modals_bd))
+                                                        <option value="{{$m->id}}">{{$m->name}}</option>
+                                                    @endif 
+                                                @endforeach
+                                            @endif                    
+                                        </select>            
                                         <input type="button" id="add_modal" class="btn btn-primary btn-sm" value="+">
                                     </div>                                
                                 </div>    
-                            </div>
+                            </div> 
                             <div class="form-row input-group mb-3"> 
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9">
@@ -207,7 +211,9 @@
                     </div>
                     <div class="card-footer">      
                         <button class="btn btn-primary btn-sm" type="submit">Editar</button>
-                        </form>              
+                        </form>    
+                        <a href="/cadastros/plans" class="btn btn-sm btn-secondary">Cancelar</a>
+                        <a href="/cadastros/plan/{{$plan->id}}/delete" class="btn btn-sm  btn-danger">Apagar</a>
                     </div> 
                 </div>
             </div>

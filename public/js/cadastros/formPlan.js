@@ -1,7 +1,10 @@
-$(document).ready(function() {                 
+$(document).ready(function() {  
+
+    verifyRowModals();
+
     //Campos de durações
     $('#add_field').click (function(e) {                
-        e.preventDefault();     //prevenir novos clicks                                
+        e.preventDefault();//prevenir novos clicks                                
         $('#duracoes').append('<div class="col-sm-1">\
                 <input type="text"  class="form-control" name="duracao[]">\
                 <button href="#" class="btn btn-danger btn-sm remover_campo">-</button>\
@@ -12,6 +15,7 @@ $(document).ready(function() {
         e.preventDefault();
         $(this).parent('div').remove();          
     }); 
+    //Adicionar modalidade na tabela de cadastro
     $('#add_modal').on("click",function(e) { 
         var texto = $("#lista option:selected").text(); 
         var itemSelecionado = $("#lista option:selected").val(); 
@@ -24,6 +28,22 @@ $(document).ready(function() {
         $("#lista option:selected").remove();
         verifyRowModals();
     }); 
+    //Impedir submit vazio
+    $("#formPlan,#formPlanEdit").submit(function() {
+        let name = $("#name").val(); 
+        let duracoes = $("input[name='duracao[]']"); 
+        duracoes.each(function() {
+            var value = $(this).val();   
+            if(value>12 || value==0){
+                alert('Durações inválidas! Corrija');
+                return false;
+            } 
+        });   
+        if($("#name").val() == ''){
+            alert('campo vazio');      
+            return false;
+        }
+    });
 }); 
 //Remover linhas da tabela de modalidades
 function remover(data,id){
