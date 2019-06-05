@@ -44,6 +44,10 @@ $(document).ready(function() {
             return false;
         }
     });
+    //Somente numeros nas divs duracoes
+    $('.duracoes').keyup(function() {
+        $(this).val(this.value.replace(/\D/g, ''));
+    }); 
 }); 
 //Remover linhas da tabela de modalidades
 function remover(data,id){

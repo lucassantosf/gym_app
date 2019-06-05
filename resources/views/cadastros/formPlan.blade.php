@@ -77,7 +77,7 @@
                                     <input type="button" class="form-control btn btn-primary btn-sm" id="add_field" value="+">
                                 </div>
                                 <div class="col-sm-1">              
-                                    <input type="text" class="form-control" name="duracao[]">
+                                    <input type="text" class="form-control duracoes" name="duracao[]">
                                 </div>          
                             </div>
                             <br>
@@ -145,7 +145,7 @@
                                 @if(isset($duracoes))
                                     @foreach($duracoes as $d)                        
                                     <div class="col-sm-1">              
-                                        <input type="text" class="form-control" name="duracao[]" value="{{$d->duracao}}">
+                                        <input type="text" class="form-control duracoes" name="duracao[]" value="{{$d->duracao}}">
                                         <button href="#" class="btn btn-danger btn-sm remover_campo">-</button>
                                     </div>                                                        
                                     @endforeach  
