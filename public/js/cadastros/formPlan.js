@@ -29,20 +29,32 @@ $(document).ready(function() {
         verifyRowModals();
     }); 
     //Impedir submit vazio
-    $("#formPlan,#formPlanEdit").submit(function() {
+    $("#formPlan,#formPlanEdit").submit(function(e) {  
         let name = $("#name").val(); 
-        let duracoes = $("input[name='duracao[]']"); 
-        duracoes.each(function() {
-            var value = $(this).val();   
-            if(value>12 || value==0){
-                alert('Durações inválidas! Corrija');
-                return false;
-            } 
-        });   
         if($("#name").val() == ''){
-            alert('campo vazio');      
+            e.preventDefault();
+            alert('Descrição do plano vazio!');      
             return false;
         }
+        let duracoes = $("input[name='duracao[]']"); 
+        if(duracoes.length == 0){
+            alert('Informe alguma duração');
+            return false;
+        }else{
+            duracoes.each(function() {
+            var value = $(this).val();   
+                if(value>12 || value==0){
+                    e.preventDefault();
+                    alert('Durações inválidas!');
+                    return false;
+                } 
+            }); 
+        }  
+        let modals = $("input[name='modals[]']"); 
+        if(modals.length == 0){
+            alert('Selecione alguma modalidade');
+            return false;
+        }   
     });
     //Somente numeros nas divs duracoes
     $('.duracoes').keyup(function() {

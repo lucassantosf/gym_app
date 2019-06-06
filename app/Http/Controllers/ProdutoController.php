@@ -20,8 +20,22 @@ class ProdutoController extends Controller
     	return view('cadastros.formProduct',compact('i'));
     }
 
+    //Validar form cadastro e edição de produtos
+    public function validateForm(Request $request){
+        //validacao de campos com 'msgs' personalizadas
+        $regras = [
+            'name'=>'required|max:50',
+            'value'=>'required', 
+        ];
+        $mensagens = [
+            'required'=>'O campo :attribute não pode ser vazio'
+        ]; 
+        $request->validate($regras,$mensagens);
+    }
+
     //Este método trabalha o post do formulário de cadastro para produtos
     public function postformProd(Request $request){
+        $this->validateForm($request);
     	$prod = new Produto();
     	$prod->name = $request->input('name');
         $prod->value = $request->input('value');
@@ -43,7 +57,8 @@ class ProdutoController extends Controller
 
     //Este método trabalha o post do formulário de edição dos produtos
     public function postformProdEdit(Request $request, $id){
-    	$prod = Produto::find($id);
+    	$this->validateForm($request);
+        $prod = Produto::find($id);
     	if(isset($prod)){
     		$prod->name = $request->input('name');
             $prod->value = $request->input('value');

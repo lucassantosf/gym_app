@@ -16,12 +16,12 @@
                                     <th>#</th>
                                     <th>Descrição</th>
                                     <th>Modalidade</th> 
-                                    <th scope="col" colspan="2">Situação</th> 
+                                    <th>Situação</th> 
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($turmas as $t) 
-                                    <tr>
+                                    <tr onclick="location.href='/cadastros/turmas/{{$t->id}}/edit';">
                                         <th>{{$t->id}}</th>
                                         <td>{{$t->name}}</td>
                                         <td>
@@ -35,11 +35,7 @@
                                             @if($t->status == 1) Ativo 
                                             @else Inativo 
                                             @endif
-                                        </td>
-                                        <td>
-                                            <a href="/cadastros/turmas/{{$t->id}}/edit" class="btn btn-sm btn-info">Editar</a>
-                                            <a href="/cadastros/turmas/{{$t->id}}/delete" class="btn btn-sm  btn-danger">Apagar</a>
-                                        </td>
+                                        </td> 
                                     </tr> 
                                 @endforeach
                             </tbody>   
@@ -54,7 +50,7 @@
                 <div class="card">
                     <div class="card-header" style="text-align: center">Cadastrar Turmas < <a href="/cadastros/turmas">Voltar</a></div>
                     <div class="card-body">                         
-                        <form action="/cadastros/formTurma" method="POST"> 
+                        <form action="/cadastros/formTurma" method="POST" id="formTurma"> 
                             @csrf
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-3 col-form-label">Descrição da turma</label>
@@ -102,7 +98,7 @@
                     </div>                 
                     <div class="card-footer">
                         <button class="btn btn-sm btn-info" type="submit">Salvar</button>
-                        <a href="/cadastros/turmas" class="btn btn-sm btn-danger">Cancelar</a>
+                        <a href="/cadastros/turmas" class="btn btn-sm btn-secondary">Cancelar</a>
                         </form>
                         @if($errors->any())
                             @foreach($errors->all() as $error)
@@ -124,7 +120,7 @@
                             Cadastrar Turmas < <a href="/cadastros/turmas">Voltar</a>
                         </div>
                         <div class="card-body">                   
-                            <form action="/cadastros/turmas/{{$turma->id}}/edit" method="POST"> 
+                            <form action="/cadastros/turmas/{{$turma->id}}/edit" method="POST" id="formTurmaEdit"> 
                                 @csrf
                                 <div class="form-group row">
                                     <label for="staticEmail" class="col-sm-3 col-form-label">Descrição da turma</label>
@@ -196,7 +192,8 @@
                         <div class="card-footer">
                             <button class="btn btn-sm btn-info" type="submit">Salvar</button>
                             </form>
-                            <a href="/cadastros/turmas/{{$turma->id}}/delete" class="btn btn-sm  btn-danger">Apagar</a>
+                            <a href="/cadastros/turmas" class="btn btn-sm btn-secondary">Cancelar</a>
+                            <a href="/cadastros/turmas/{{$turma->id}}/delete" class="btn btn-sm  btn-danger">Apagar</a>  
                             @if($errors->any())
                                 @foreach($errors->all() as $error)
                                     <div class="alert alert-danger" role="alert">

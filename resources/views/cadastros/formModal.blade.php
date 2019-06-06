@@ -23,17 +23,13 @@
                               </thead>
                               <tbody> 
                                     @foreach($modals as $m)
-                                    <tr>
+                                    <tr onclick="location.href= '/cadastros/modal/{{$m->id}}/edit';">
                                         <th scope="row">{{$m->id}}</th>
                                         <td>{{$m->name}}</td>
                                         <td>R${{$m->value}}</td>
                                         <td>{{$m->freq}}</td>
                                         <td>@if($m->controlTurma == 1) Sim @else Não @endif</td>
-                                        <td>@if($m->status == 1) Ativo @else Inativo @endif</td>
-                                        <td>
-                                            <a href="/cadastros/modal/{{$m->id}}/edit" class="btn btn-sm btn-info">Editar</a>
-                                            <a href="/cadastros/modal/{{$m->id}}/delete" class="btn btn-sm btn-danger">Excluir</a>         
-                                        </td>
+                                        <td>@if($m->status == 1) Ativo @else Inativo @endif</td> 
                                     </tr> 
                                     @endforeach
                               </tbody>
@@ -47,7 +43,7 @@
             <!-- Inicio card Cadastro-->
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Cadastrar modalidade</div>
+                    <div class="card-header">Cadastrar modalidade < <a href="/cadastros/modals">Voltar</a></div>
                     <div class="card-body">
                         @if(!isset($modal)) 
                         <form action="/cadastros/formModal" method="POST">
@@ -55,19 +51,19 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Nome</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="name" class="form-control" placeholder="Descrição"> 
+                                    <input type="text" name="name" class="form-control" placeholder="Descrição" value="{{old('name')}}"> 
                                 </div> 
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Valor mensal</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="value" class="form-control" placeholder="R$"> 
+                                    <input type="text" name="value" class="form-control" placeholder="R$" value="{{old('value')}}"> 
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Frequencia</label>
                                 <div class="col-sm-4">
-                                    <input type="text" name="freq" class="form-control" placeholder="Dias na semana"> 
+                                    <input type="text" name="freq" class="form-control" placeholder="Dias na semana" value="{{old('freq')}}"> 
                                 </div>                            
                             </div>
                             <div class="form-group row">
@@ -127,17 +123,24 @@
                                     </div>
                                 </div>
                             </div> 
+                            @endif 
+                            @if($errors->any())
+                                @foreach($errors->all() as $error)
+                                    <div class="alert alert-danger">{{$error}}</div>
+                                @endforeach
                             @endif   
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-sm btn-primary">Cadastrar</button>
-                        <a href="/cadastros/modals" class="btn btn-sm btn-danger">Cancelar</a>
+                        @if(!isset($modal))<button type="submit" class="btn btn-sm btn-primary">Salvar</button>@else<button type="submit" class="btn btn-sm btn-primary">Editar</button> 
+                        @endif
+                        <a href="/cadastros/modals" class="btn btn-sm btn-secondary">Cancelar</a>@if(isset($modal))
+                        <a href="/cadastros/modal/{{$modal->id}}/delete" class="btn btn-sm btn-danger">Excluir</a>@endif
                         </form>                    
                     </div>
                 </div>
             </div>
             <!-- Fim card Cadastro-->
-        @endif
+        @endif  
     </div>
 </div>
 @endsection

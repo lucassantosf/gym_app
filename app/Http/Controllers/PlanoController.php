@@ -12,10 +12,8 @@ use App\Parcela;
 use App\ItemTurma;
 use DateTime;
 
-class PlanoController extends Controller
-{
+class PlanoController extends Controller{
     public $duracao;
-
     //Exibe a listagem de planos cadastrados
     public function indexPlans(){
         //$plans = Plano::withTrashed()->get(); //Traz todos os registros mesmo apagados

@@ -21,15 +21,11 @@
                               </thead> 
                               <tbody> 
                                     @foreach($prods as $p)
-                                    <tr>
-                                        <th scope="row">{{$p->id}}</th>
+                                    <tr onclick="location.href = '/cadastros/prod/{{$p->id}}/edit';">
+                                        <th>{{$p->id}}</th>
                                         <td>{{$p->name}}</td>
-                                        <td>{{$p->value}}</td>
-                                        <td>@if($p->status == 1) Ativo @else Inativo @endif</td>
-                                        <td>
-                                            <a href="/cadastros/prod/{{$p->id}}/edit" class="btn btn-sm btn-info">Editar</a>
-                                            <a href="/cadastros/prod/{{$p->id}}/delete" class="btn btn-sm btn-danger">Excluir</a>         
-                                        </td>
+                                        <td>R${{$p->value}}</td>
+                                        <td>@if($p->status == 1) Ativo @else Inativo @endif</td> 
                                     </tr> 
                                     @endforeach
                               </tbody>
@@ -42,7 +38,7 @@
             <!-- Inicio card Cadastro-->
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Cadastrar produtos e serviços</div>
+                    <div class="card-header">Cadastrar produtos e serviços < <a href="/cadastros/products">Voltar</a></div>
                     <div class="card-body"> 
                         @if(!isset($prod))          
                             <form action="/cadastros/formProd" method="POST">
@@ -50,13 +46,13 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Nome</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="name" class="form-control" placeholder="Descrição"> 
+                                        <input type="text" name="name" class="form-control" placeholder="Descrição" value="{{@old('name')}}"> 
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Valor</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="value" class="form-control" placeholder="R$"> 
+                                        <input type="text" name="value" class="form-control" placeholder="R$" value="{{@old('value')}}"> 
                                     </div>
                                 </div>   
                                 <div class="form-group row">
@@ -110,18 +106,25 @@
                                         </div>
                                     </div>
                                 </div>
+                        @endif
+                        @if($errors->any())
+                            @foreach($errors->all() as $error)
+                                <div class="alert alert-danger">{{$error}}</div>
+                            @endforeach
                         @endif 
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-sm btn-primary">Cadastrar</button> 
-                        <a href="/cadastros/products" class="btn btn-sm btn-danger">Cancelar</a>
+                    <div class="card-footer"> 
+                        @if(!isset($prod))<button type="submit" class="btn btn-sm btn-primary">Salvar</button> 
+                        @else <button type="submit" class="btn btn-sm btn-primary">Editar</button> @endif
+                        <a href="/cadastros/products" class="btn btn-sm btn-secondary">Cancelar</a>
+                        @if(isset($prod))<a href="/cadastros/prod/{{$prod->id}}/delete" class="btn btn-sm btn-danger">Excluir</a>@endif
                         </form>                    
                     </div>
                 </div>
             </div>
             <!-- Fim card Cadastro-->
-        @endif    
-    </div>
+        @endif  
+    </div> 
 </div>
 @endsection
 @section('javascript')   

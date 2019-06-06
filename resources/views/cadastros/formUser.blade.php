@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Cadastrar Usuários</div>
+                <div class="card-header">Cadastrar Usuários < <a href="/cadastros/users">Voltar</a></div>
                 <div class="card-body">
                 @if(isset($user))
                     <form action="/cadastros/user/{{$user->id}}/edit" method="POST" id="formUser">
@@ -39,7 +39,9 @@
                         @endforeach
                     @endif     
                     @if(isset($user))
-                        <button class="btn btn-info" type="submit">Editar</button>
+                        <button class="btn btn-sm btn-info" type="submit">Editar</button>
+                        <a href="/cadastros/users" class="btn btn-sm btn-secondary">Cancelar</a> 
+                        <a href="/cadastros/user/{{$user->id}}/delete" class="btn btn-sm btn-danger">Excluir</a>
                     @else                
                         <button class="btn btn-primary" type="submit">Cadastrar</button>
                     @endif

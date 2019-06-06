@@ -54,11 +54,22 @@
 
 	-------------Consultar posição estoque atual para um produto
 
+	-> Informações Gerenciais da empresa através de relatórios:
+
+	-------------Faturamento
+
+	-------------Receita
+
+	-------------Dados de Alunos
+
+	-------------Parcelas
 </p>
 
-<h2>Funcionalidades em andamento</h2>
+<h2>Funcionalidades em andamento</h2> 
 
 <p>	
-	-> Informações Gerenciais da empresa através de relatórios
+	
+	-> Validações de formulários
+
 	-> Melhorias em design do sistema
 </p>  

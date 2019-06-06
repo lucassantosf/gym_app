@@ -19,17 +19,13 @@
                     <th scope="col" colspan="2">Situação</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody> 
                   @foreach($users as $u)
-                      <tr>
-                        <th scope="row">{{$u->id}}</th>
+                      <tr onclick="location.href = '/cadastros/user/{{$u->id}}/edit';">
+                        <th>{{$u->id}}</th>
                         <td>{{$u->name}}</td>
                         <td>{{$u->email}}</td>
-                        <td>@Ativo</td>
-                        <td>
-                          <a href="/cadastros/user/{{$u->id}}/edit" class="btn btn-sm btn-info">Editar</a>
-                          <a href="/cadastros/user/{{$u->id}}/delete" class="btn btn-sm btn-danger">Excluir</a>
-                        </td>
+                        <td>@Ativo</td> 
                       </tr>                                
                   @endforeach                            
                 </tbody>

@@ -1,10 +1,15 @@
 $(document).ready(function() { 
     incluirMascara(); 
+    $("#formTurma,#formTurmaEdit").submit(function(e) {  
+        console.log('submit');
+        return false;
+        //////////////////////
+    });
 });
 //Remover linhas do grid formTurma
 function apagarLinhaHora(data){
     $(data).parents('tr').remove();   
-}
+} 
 //Adicionar linha do grid formTurma
 function incluirLinhaHora(data){
     $('#table_horarios').append('<tr>'+
