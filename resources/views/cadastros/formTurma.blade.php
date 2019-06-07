@@ -62,7 +62,7 @@
                                 <label class="col-sm-3">Modalidade</label>
                                 @if(isset($modalidades))
                                     <div class="col-sm-9">
-                                        <select class="custom-select" name="modal_id">
+                                        <select class="custom-select" id="modal_id" name="modal_id">
                                             <option selected>Selecionar a modalidade</option> 
                                             @foreach($modalidades as $m)                                    
                                                 <option value="{{$m->id}}">{{$m->name}}</option>

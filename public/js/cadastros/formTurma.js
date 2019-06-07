@@ -1,11 +1,51 @@
 $(document).ready(function() { 
-    incluirMascara(); 
-    $("#formTurma,#formTurmaEdit").submit(function(e) {  
-        console.log('submit');
+    incluirMascara();
+    /*  CONTINUAR AQUI
+    $("#formTurma,#formTurmaEdit").submit(function(e) {   
+        let submit = checkEmptFields();
+        console.log(submit);
+        if(!submit) {return false;}
+        //
+    });*/
+}); 
+function checkEmptFields(){
+    let descricao_turma = $("#descricao_turma,#descricao_turma_edit").val();
+    let modal_id = $("#modal_id").val();  
+    let table_horarios = $("#table_horarios tr").length; 
+    if(!descricao_turma) { alert('Descricao da turma esta vazio'); return false;}
+    if(isNaN(modal_id)) { alert('Selecione alguma modalidade'); return false;}
+    if(table_horarios<=1) { 
+        alert('Inserir algum horário');
         return false;
-        //////////////////////
-    });
-});
+    }else{
+        let horarioInicio = $("input[name='horarioInicio[]']");
+        horarioInicio.each(function() {
+            var value = $(this).val();   
+            if(!value){
+                alert('Não tem horário inicio');
+                return false;
+            }
+        });
+        let horarioFim = $("input[name='horarioFim[]']");
+        horarioFim.each(function() {
+            var value = $(this).val();   
+            if(!value){
+                alert('Não tem horário fim');
+                return false;
+            }
+        });
+        let qtdTurma = $("input[name='qtdTurma[]']");
+        qtdTurma.each(function() {
+            var value = $(this).val();   
+            if(!value){
+                alert('Informar quantidade');
+                return false;
+            }
+        }); 
+
+    } 
+    
+} 
 //Remover linhas do grid formTurma
 function apagarLinhaHora(data){
     $(data).parents('tr').remove();   
